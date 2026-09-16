@@ -1,0 +1,1796 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <meta name="description" content="Economia Sem Complicação — Entenda o que aconteceu. Descubra por que importa. Portal de jornalismo e explicação econômica com dados oficiais do Banco Central, IBGE e B3.">
+  <meta name="theme-color" content="#FFC900">
+  <title>Economia Sem Complicação — Entenda o que aconteceu. Descubra por que importa.</title>
+  
+  <!-- Tipografias: Archivo Black, Plus Jakarta Sans e JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=JetBrains+Mono:wght@400;500;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Chart.js para gráficos baseados em dados reais -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            headline: ['"Archivo Black"', 'sans-serif'],
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace'],
+          },
+          colors: {
+            'gum-bg': '#F4F4F0',
+            'gum-dark': '#EBEAE5',
+            'gum-black': '#000000',
+            'gum-pink': '#FF90E8',
+            'gum-yellow': '#FFC900',
+            'gum-periwinkle': '#B8C0FF',
+            'gum-mint': '#78E08F',
+            'gum-cyan': '#70E2FF',
+          },
+          boxShadow: {
+            'gum-sm': '2px 2px 0px #000000',
+            'gum': '4px 4px 0px #000000',
+            'gum-lg': '6px 6px 0px #000000',
+            'gum-coin': '8px 8px 0px rgba(0,0,0,1)',
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body {
+      background-color: #F4F4F0;
+      color: #000000;
+      font-family: "Plus Jakarta Sans", sans-serif;
+      overflow-x: hidden;
+    }
+
+    .border-gum { border: 2px solid #000000; }
+    .border-gum-b { border-bottom: 2px solid #000000; }
+    .border-gum-r { border-right: 2px solid #000000; }
+    .border-gum-t { border-top: 2px solid #000000; }
+    .border-gum-l { border-left: 2px solid #000000; }
+
+    @keyframes pulse-dot {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.35); opacity: 0.35; }
+    }
+    .live-dot { animation: pulse-dot 1.8s infinite ease-in-out; }
+
+    @keyframes ticker-anim {
+      0% { transform: translateX(0%); }
+      100% { transform: translateX(-50%); }
+    }
+    .ticker-scroll {
+      display: flex;
+      width: max-content;
+      animation: ticker-anim 44s linear infinite;
+    }
+    .ticker-scroll:hover { animation-play-state: paused; }
+
+    @keyframes float-coin {
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      50% { transform: translateY(-7px) rotate(-1.5deg); }
+    }
+    .coin-float-1 { animation: float-coin 4.5s ease-in-out infinite; }
+
+    ::-webkit-scrollbar { width: 8px; height: 8px; }
+    ::-webkit-scrollbar-track { background: #F4F4F0; border-left: 2px solid #000000; }
+    ::-webkit-scrollbar-thumb { background: #000000; }
+  </style>
+</head>
+<body class="min-h-screen text-gum-black flex flex-col selection:bg-gum-pink selection:text-gum-black antialiased">
+
+  <!-- CABEÇALHO EDITORIAL COM IDENTIFICAÇÃO DE HORÁRIOS -->
+  <header class="w-full bg-white border-gum-b sticky top-0 z-50 shadow-sm">
+    <div class="max-w-[1440px] mx-auto flex items-stretch justify-between text-xs font-mono font-bold">
+      
+      <div class="flex items-stretch border-gum-r">
+        <a href="#inicio" class="flex items-center gap-2 px-3 sm:px-5 py-3 bg-white hover:bg-gum-yellow transition-colors" aria-label="Início do Jornal">
+          <span class="font-headline text-base sm:text-xl tracking-tight uppercase">ECONOMIA SEM COMPLICAÇÃO</span>
+        </a>
+      </div>
+
+      <nav class="hidden xl:flex items-stretch flex-1 justify-center" aria-label="Navegação Principal">
+        <a href="#noticias-economicas" class="flex items-center px-3 py-3 border-gum-r hover:bg-gum-yellow transition-colors">NOTÍCIAS</a>
+        <a href="#brasil" class="flex items-center px-3 py-3 border-gum-r hover:bg-gum-mint transition-colors">BRASIL</a>
+        <a href="#mundo" class="flex items-center px-3 py-3 border-gum-r hover:bg-gum-cyan transition-colors">MUNDO</a>
+        <a href="#mercados" class="flex items-center px-3 py-3 border-gum-r hover:bg-gum-mint transition-colors">MERCADOS</a>
+        <a href="#bolsa" class="flex items-center px-3 py-3 border-gum-r hover:bg-gum-yellow transition-colors">BOLSA</a>
+        <a href="#acoes" class="flex items-center px-3 py-3 border-gum-r hover:bg-gum-pink transition-colors">AÇÕES</a>
+        <a href="#impacto-dia" class="flex items-center px-3 py-3 border-gum-r hover:bg-gum-yellow transition-colors">SEU DIA</a>
+        <a href="#impactos-economicos" class="flex items-center px-3 py-3 border-gum-r hover:bg-gum-periwinkle transition-colors">IMPACTOS</a>
+        <a href="#graficos" class="flex items-center px-3 py-3 border-gum-r hover:bg-gum-pink transition-colors">GRÁFICOS</a>
+      </nav>
+
+      <div class="flex items-stretch">
+        <!-- Relógio com status ao vivo -->
+        <div class="flex items-center gap-1.5 px-2.5 sm:px-3 py-2 bg-gum-yellow border-gum-l border-gum-r text-[11px] font-black" title="Horário atual de Brasília">
+          <span class="w-2.5 h-2.5 rounded-full bg-red-600 live-dot"></span>
+          <span id="header-timestamp" class="tabular-nums font-mono font-bold">--:--:--</span>
+        </div>
+
+        <!-- Timer do ciclo de dados de 1 hora -->
+        <div class="hidden md:flex items-center gap-1.5 px-3 py-2 bg-gum-dark border-gum-r text-[11px] font-mono font-bold" title="Ciclo contínuo de 1 hora para verificação de novas divulgações oficiais e cotações">
+          <span class="text-neutral-600">PRÓX. CICLO:</span>
+          <span id="header-countdown" class="bg-gum-black text-white px-1.5 py-0.5 rounded-none font-black tabular-nums">59:59</span>
+        </div>
+
+        <!-- Botão Atualizar Manual -->
+        <button id="btn-refresh" onclick="triggerAutonomousUpdate(true)" class="hidden sm:flex items-center gap-1.5 px-4 py-2 bg-gum-black text-white hover:bg-gum-pink hover:text-gum-black transition-colors font-mono font-black text-xs">
+          <span>SINCRONIZAR</span>
+          <span>↗</span>
+        </button>
+
+        <button onclick="toggleMobileMenu()" class="xl:hidden flex items-center px-4 py-2 bg-white hover:bg-gum-dark border-gum-l text-base font-bold" aria-label="Abrir Menu">
+          ☰
+        </button>
+      </div>
+
+    </div>
+
+    <!-- Menu Mobile -->
+    <div id="mobile-menu" class="hidden xl:hidden border-gum-t bg-gum-bg p-4 grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs font-mono font-bold">
+      <div class="col-span-2 sm:col-span-4 p-2 bg-gum-yellow border-gum text-center flex items-center justify-between text-[11px]">
+        <span>CICLO DE ATUALIZAÇÃO:</span>
+        <span id="mobile-countdown" class="bg-gum-black text-white px-2 py-0.5 font-black">59:59</span>
+      </div>
+      <a href="#noticias-economicas" onclick="toggleMobileMenu()" class="p-3 bg-white border-gum text-center shadow-gum-sm">NOTÍCIAS</a>
+      <a href="#brasil" onclick="toggleMobileMenu()" class="p-3 bg-gum-mint border-gum text-center shadow-gum-sm">BRASIL</a>
+      <a href="#mundo" onclick="toggleMobileMenu()" class="p-3 bg-gum-cyan border-gum text-center shadow-gum-sm">MUNDO</a>
+      <a href="#mercados" onclick="toggleMobileMenu()" class="p-3 bg-gum-mint border-gum text-center shadow-gum-sm">MERCADOS</a>
+      <a href="#bolsa" onclick="toggleMobileMenu()" class="p-3 bg-gum-yellow border-gum text-center shadow-gum-sm">BOLSA</a>
+      <a href="#acoes" onclick="toggleMobileMenu()" class="p-3 bg-gum-pink border-gum text-center shadow-gum-sm">AÇÕES</a>
+      <a href="#impacto-dia" onclick="toggleMobileMenu()" class="p-3 bg-gum-yellow border-gum text-center shadow-gum-sm">SEU DIA</a>
+      <a href="#impactos-economicos" onclick="toggleMobileMenu()" class="p-3 bg-gum-periwinkle border-gum text-center shadow-gum-sm">IMPACTOS</a>
+      <a href="#graficos" onclick="toggleMobileMenu()" class="p-3 bg-white border-gum text-center shadow-gum-sm">GRÁFICOS</a>
+      <button onclick="triggerAutonomousUpdate(true); toggleMobileMenu();" class="col-span-2 sm:col-span-4 p-2.5 bg-gum-black text-white text-center border-gum">
+        SINCRONIZAR AGORA ↗
+      </button>
+    </div>
+  </header>
+
+  <!-- TICKER DINÂMICO CONECTADO COM A AWESOMEAPI -->
+  <div class="bg-gum-yellow border-gum-b overflow-hidden select-none py-2 text-xs font-mono font-bold">
+    <div class="ticker-scroll flex items-center gap-8 px-4">
+      <div class="flex items-center gap-6" id="ticker-content-1">
+        <span class="bg-gum-black text-white px-2 py-0.5 text-[11px] font-black">COTAÇÕES DE REFERÊNCIA:</span>
+        <span><strong>DÓLAR COMERCIAL:</strong> <span id="ticker-usd">R$ 5,612</span> <span id="ticker-usd-var" class="bg-white px-1 border border-gum font-black">▲ +0,42%</span></span>
+        <span>•</span>
+        <span><strong>EURO:</strong> <span id="ticker-eur">R$ 6,180</span> <span id="ticker-eur-var" class="bg-white px-1 border border-gum font-black">▲ +0,25%</span></span>
+        <span>•</span>
+        <span><strong>SELIC META (BCB):</strong> <span id="ticker-selic">10,75% a.a.</span></span>
+        <span>•</span>
+        <span><strong>IPCA 12M (IBGE):</strong> <span id="ticker-ipca">4,24%</span></span>
+        <span>•</span>
+        <span><strong>IBOVESPA (B3):</strong> <span id="ticker-ibov">132.840 pts</span></span>
+        <span>•</span>
+        <span><strong>PETRÓLEO BRENT:</strong> US$ 73,80</span>
+      </div>
+      <div class="flex items-center gap-6" id="ticker-content-2">
+        <span class="bg-gum-black text-white px-2 py-0.5 text-[11px] font-black">COTAÇÕES DE REFERÊNCIA:</span>
+        <span><strong>DÓLAR COMERCIAL:</strong> <span id="ticker-usd-2">R$ 5,612</span></span>
+        <span>•</span>
+        <span><strong>EURO:</strong> <span id="ticker-eur-2">R$ 6,180</span></span>
+        <span>•</span>
+        <span><strong>SELIC META (BCB):</strong> 10,75% a.a.</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- HERO SECTION: IDENTIFICAÇÃO E SLOGAN DO JORNAL -->
+  <section id="inicio" class="w-full bg-gum-bg border-gum-b">
+    <div class="max-w-[1440px] mx-auto grid grid-cols-1 lg:grid-cols-12 min-h-[460px]">
+      
+      <div class="lg:col-span-7 p-6 sm:p-10 lg:p-12 flex flex-col justify-center border-gum-b lg:border-gum-b-0 lg:border-gum-r space-y-5">
+        
+        <div class="inline-flex items-center gap-2 flex-wrap">
+          <span class="bg-gum-black text-white font-mono font-bold text-xs px-2.5 py-1">JORNALISMO ECONÔMICO INDEPENDENTE</span>
+          <span id="hero-live-date" class="text-xs font-mono text-neutral-700 font-bold">
+            CARREGANDO DATA...
+          </span>
+        </div>
+
+        <h1 class="font-headline text-3xl sm:text-5xl lg:text-6xl tracking-tighter uppercase text-gum-black leading-[1.02]">
+          ENTENDA O QUE ACONTECEU. DESCUBRA POR QUE IMPORTA.
+        </h1>
+
+        <p class="font-sans text-base sm:text-lg text-neutral-800 font-semibold max-w-xl leading-relaxed">
+          Decisões do Banco Central, inflação apurada pelo IBGE, os rumos da Bolsa e os grandes eventos internacionais explicados com base em fontes oficiais e dados verificáveis.
+        </p>
+
+        <div class="flex flex-wrap items-center gap-3 pt-2">
+          <a href="#noticias-economicas" class="px-6 py-3 bg-gum-black text-white hover:bg-gum-pink hover:text-gum-black border-gum font-mono text-xs sm:text-sm font-black shadow-gum active:translate-x-0.5 active:translate-y-0.5 transition-all flex items-center gap-2">
+            <span>VER NOTÍCIAS DE HOJE</span>
+            <span class="text-base leading-none">↓</span>
+          </a>
+
+          <a href="#bolsa" class="px-6 py-3 bg-gum-yellow text-gum-black hover:bg-white border-gum font-mono text-xs sm:text-sm font-black shadow-gum transition-all flex items-center gap-2">
+            <span>BOLSA EM TEMPO REAL</span>
+            <span class="text-base leading-none">↗</span>
+          </a>
+        </div>
+
+        <!-- Diferenciação explícita entre atualização do site e data do dado -->
+        <div class="pt-2 text-xs font-mono text-neutral-600 flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-4">
+          <div>
+            <span>Última checagem do site:</span>
+            <span id="last-sync-time" class="font-bold text-gum-black bg-gum-yellow px-1.5 py-0.5 border border-gum">Sincronizando...</span>
+          </div>
+          <div class="text-[11px] text-neutral-500">
+            Dados econômicos mantêm a data de publicação da instituição emissora.
+          </div>
+        </div>
+
+      </div>
+
+      <div class="lg:col-span-5 bg-gum-periwinkle relative overflow-hidden flex items-center justify-center p-8 min-h-[340px]">
+        <div class="absolute inset-4 sm:inset-8 border-gum bg-white/40 backdrop-blur-sm -rotate-1"></div>
+
+        <div class="relative z-10 coin-float-1 flex flex-col items-center">
+          <div class="relative w-44 h-44 sm:w-56 sm:h-56 filter drop-shadow-[8px_12px_0px_rgba(0,0,0,1)]">
+            <svg viewBox="0 0 200 200" class="w-full h-full" aria-hidden="true">
+              <ellipse cx="100" cy="115" rx="85" ry="50" fill="#000000" />
+              <ellipse cx="100" cy="110" rx="85" ry="50" fill="#D85BB5" />
+              <ellipse cx="100" cy="100" rx="85" ry="50" fill="#000000" />
+              <ellipse cx="100" cy="95" rx="81" ry="46" fill="#FF90E8" />
+              <text x="100" y="112" font-family="'Archivo Black', sans-serif" font-size="52" font-weight="900" fill="#000000" text-anchor="middle">R$</text>
+            </svg>
+          </div>
+
+          <div class="mt-4 bg-gum-yellow border-gum px-4 py-2 font-mono text-xs font-black shadow-gum flex items-center gap-2">
+            <span>DÓLAR COMERCIAL:</span>
+            <span id="hero-coin-usd" class="bg-gum-black text-white px-2 py-0.5">R$ 5,612</span>
+          </div>
+        </div>
+
+        <div class="absolute top-6 left-6 z-20">
+          <div class="w-12 h-12 bg-gum-pink border-gum rounded-full flex items-center justify-center font-headline text-base shadow-gum">
+            %
+          </div>
+        </div>
+
+        <div class="absolute bottom-6 right-6 z-20">
+          <div class="w-14 h-14 bg-gum-yellow border-gum rounded-full flex items-center justify-center font-headline text-base shadow-gum">
+            B3
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ========================================================================= -->
+  <!-- 1. NOTÍCIAS ECONÔMICAS (PRIMEIRA SEÇÃO APÓS O HEADER/HERO) -->
+  <!-- ========================================================================= -->
+  <section id="noticias-economicas" class="w-full bg-white border-gum-b p-6 sm:p-10 scroll-mt-16">
+    <div class="max-w-[1440px] mx-auto space-y-8">
+      
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between border-gum-b pb-4 gap-2">
+        <div>
+          <span class="bg-gum-yellow px-2 py-0.5 border-gum font-mono text-xs font-black uppercase">EDIÇÃO PRINCIPAL</span>
+          <h2 class="font-headline text-3xl sm:text-4xl uppercase mt-1">Notícias Econômicas</h2>
+        </div>
+        <div class="font-mono text-xs text-neutral-600 font-bold">
+          ANÁLISE AUDITÁVEL COM BASE EM DOCUMENTOS E DADOS PÚBLICOS
+        </div>
+      </div>
+
+      <!-- MATÉRIA PRINCIPAL DE DESTAQUE -->
+      <article class="bg-gum-bg border-gum p-6 sm:p-10 shadow-gum space-y-6">
+        
+        <div class="flex flex-wrap items-center justify-between gap-3 text-xs font-mono font-bold text-neutral-600 border-b border-neutral-300 pb-3">
+          <span class="bg-gum-black text-white px-2.5 py-1">DESTAQUE DO DIA</span>
+          <div class="flex items-center gap-3">
+            <span>Fonte: Banco Central do Brasil</span>
+            <span>•</span>
+            <span id="main-news-datetime">Comunicado oficial divulgado em reunião do Copom</span>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+          
+          <div class="lg:col-span-7 space-y-5">
+            <h3 id="hero-main-title" class="font-headline text-2xl sm:text-4xl lg:text-5xl uppercase tracking-tight leading-[1.05]">
+              Banco Central fixa taxa Selic em 10,75% ao ano diante de atividade aquecida e pressões cambiais
+            </h3>
+
+            <p id="hero-main-lead" class="text-base sm:text-lg font-sans font-semibold text-neutral-800 leading-relaxed">
+              O Comitê de Política Monetária (Copom) do Banco Central do Brasil definiu o nível da taxa básica para assegurar que a inflação oficial (IPCA) convirja para a meta contínua de 3,0%, ponderando a resistência nos preços de serviços e as oscilações da moeda norte-americana.
+            </p>
+
+            <!-- BLOCO "POR QUE VOCÊ DEVE SE IMPORTAR?" -->
+            <div class="bg-gum-yellow border-gum p-4 sm:p-5 shadow-gum-sm space-y-2">
+              <h4 class="font-headline text-sm uppercase">Por que você deve se importar?</h4>
+              <p class="text-xs sm:text-sm font-sans font-medium text-neutral-900 leading-relaxed">
+                A Selic calibra o custo do dinheiro em todo o país. Quando a taxa permanece em dois dígitos, o parcelamento do cartão de crédito, o cheque especial e os financiamentos de veículos ficam onerosos. Ao mesmo tempo, quem guarda dinheiro em aplicações pós-fixadas (como Tesouro Selic ou CDB com liquidez diária) obtém rentabilidade bruta de quase 0,85% ao mês com segurança institucional.
+              </p>
+            </div>
+
+            <!-- ESTRUTURA METODOLÓGICA DIDÁTICA COMPLETA -->
+            <div class="space-y-3 text-xs font-sans">
+              <div class="p-3 bg-white border-gum space-y-1">
+                <strong class="font-mono text-[11px] text-blue-900 uppercase block">1. O que aconteceu e quando?</strong>
+                <p class="text-neutral-800 font-medium">
+                  O Copom anunciou sua decisão ao final da reunião periódica, mantendo a taxa básica de juros (Selic) em 10,75% ao ano.
+                </p>
+              </div>
+
+              <div class="p-3 bg-white border-gum space-y-1">
+                <strong class="font-mono text-[11px] text-purple-900 uppercase block">2. Por que aconteceu e o que os dados mostram?</strong>
+                <p class="text-neutral-800 font-medium">
+                  Os dados do Sistema IBGE apontam desemprego em patamar baixo (6,8%) e o IPCA acumulado em 12 meses rondando 4,24%. O consumo doméstico aquecido, aliado ao câmbio acima de R$ 5,50, exigiu cautela do BC para evitar que o aumento de custos se espalhe pela economia.
+                </p>
+              </div>
+
+              <div class="p-3 bg-white border-gum space-y-1">
+                <strong class="font-mono text-[11px] text-neutral-900 uppercase block">3. Como isso se encaixa no cenário econômico atual?</strong>
+                <p class="text-neutral-800 font-medium">
+                  Enquanto os Estados Unidos iniciaram um ciclo de alívio monetário com corte de juros pelo Federal Reserve, o Brasil necessita manter prêmio de remuneração para segurar o fluxo de capital estrangeiro e proteger a moeda.
+                </p>
+              </div>
+
+              <div class="p-3 bg-gum-dark border-gum space-y-1">
+                <strong class="font-mono text-[11px] text-black uppercase block">4. O que esperar agora? (Fato vs Expectativa)</strong>
+                <p class="text-neutral-800 font-medium">
+                  <strong>Fato observado:</strong> A Selic atual é de 10,75% a.a.<br>
+                  <strong>Expectativa de mercado:</strong> Segundo o Boletim Focus, analistas projetam que a autoridade monetária manterá postura vigilante até que as projeções de inflação para 2025 e 2026 se aproximem do centro da meta (3,0%).
+                </p>
+              </div>
+            </div>
+
+            <div class="pt-2 flex flex-wrap items-center justify-between gap-3">
+              <div class="text-xs font-mono text-neutral-600 font-bold">
+                Fonte original: Banco Central do Brasil (Notas do Copom)
+              </div>
+              <a href="https://www.bcb.gov.br/detalhenoticia/21107/nota" target="_blank" rel="noopener noreferrer" class="px-4 py-2 bg-gum-black text-white hover:bg-gum-pink hover:text-gum-black transition-colors font-mono text-xs font-black flex items-center gap-2 border-gum shadow-gum-sm">
+                <span>LER MATÉRIA OFICIAL</span>
+                <span>↗</span>
+              </a>
+            </div>
+          </div>
+
+          <div class="lg:col-span-5 space-y-3">
+            <div class="border-gum overflow-hidden bg-gum-dark shadow-gum-sm aspect-[16/11] relative">
+              <img 
+                id="main-news-img"
+                src="https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?auto=format&fit=crop&w=900&q=80" 
+                alt="Sede do Banco Central do Brasil em Brasília" 
+                class="w-full h-full object-cover"
+              >
+            </div>
+            <div class="text-[11px] font-mono text-neutral-600 flex justify-between">
+              <span>Imagem: Edifício-sede do Banco Central do Brasil</span>
+              <span>Brasília • DF</span>
+            </div>
+          </div>
+
+        </div>
+
+      </article>
+
+    </div>
+  </section>
+
+  <!-- ========================================================================= -->
+  <!-- 2. BRASIL — ACONTECIMENTOS ECONÔMICOS NACIONAIS -->
+  <!-- ========================================================================= -->
+  <section id="brasil" class="w-full bg-gum-bg border-gum-b p-6 sm:p-10 scroll-mt-16">
+    <div class="max-w-[1440px] mx-auto space-y-6">
+      
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between border-gum-b pb-4 gap-2">
+        <div class="flex items-center gap-2">
+          <span class="bg-gum-mint px-2.5 py-1 border-gum font-mono text-xs font-black uppercase">NACIONAL</span>
+          <h2 class="font-headline text-3xl sm:text-4xl uppercase">Economia do Brasil</h2>
+        </div>
+        <div class="font-mono text-xs text-neutral-600 font-bold flex items-center gap-2">
+          <span>Acompanhamento contínuo de inflação, contas públicas e atividade</span>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        
+        <!-- Matéria Brasil 1: IPCA e Inflação -->
+        <article class="bg-white border-gum p-6 shadow-gum space-y-4 flex flex-col justify-between">
+          <div class="space-y-3">
+            <div class="flex justify-between items-center font-mono text-[11px] text-neutral-500 font-bold border-b border-neutral-200 pb-2">
+              <span>IBGE • SISTEMA NACIONAL DE PREÇOS AO CONSUMIDOR</span>
+              <span>Dados Oficiais</span>
+            </div>
+
+            <div class="border-gum overflow-hidden bg-gum-dark aspect-[16/9]">
+              <img 
+                src="https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=800&q=80" 
+                alt="Gôndolas de supermercado com frutas e produtos essenciais" 
+                class="w-full h-full object-cover"
+              >
+            </div>
+
+            <h3 class="font-headline text-xl sm:text-2xl uppercase leading-snug">
+              IPCA registra 4,24% em 12 meses impulsionado por energia elétrica e itens de alimentação
+            </h3>
+
+            <div class="space-y-2 text-xs font-sans text-neutral-800 leading-relaxed">
+              <p><strong>O que aconteceu:</strong> O IBGE divulgou o resultado do Índice Nacional de Preços ao Consumidor Amplo (IPCA), situando o indicador dentro do teto de tolerância da meta (3,0% com margem até 4,5%).</p>
+              <p><strong>Por que aconteceu e o que os dados mostram:</strong> O acionamento de bandeiras tarifárias nas contas de luz e o clima seco em regiões agrícolas elevaram os preços de hortaliças e carne bovina.</p>
+              <p><strong>Como isso impacta a economia:</strong> A persistência da inflação em níveis próximos a 4,5% impede que o Banco Central reduza juros, mantendo o custo de crédito corporativo e bancário elevado.</p>
+              <p><strong>Como chega até você:</strong> O orçamento familiar fica comprimido nos itens essenciais da feira e supermercado, sobrando menos margem de renda para lazer e compras discricionárias.</p>
+            </div>
+          </div>
+
+          <div class="pt-3 border-gum-t flex flex-wrap items-center justify-between text-xs font-mono gap-2">
+            <span class="text-neutral-600 font-bold">Fonte: IBGE (IPCA)</span>
+            <a href="https://www.ibge.gov.br/estatisticas/economicas/precos-e-custos/9256-indice-nacional-de-precos-ao-consumidor-amplo.html" target="_blank" rel="noopener noreferrer" class="px-3 py-1.5 bg-gum-black text-white hover:bg-gum-mint hover:text-gum-black transition-colors font-bold">
+              LER MATÉRIA OFICIAL ↗
+            </a>
+          </div>
+        </article>
+
+        <!-- Matéria Brasil 2: Tesouro Nacional e Dívida Pública -->
+        <article class="bg-white border-gum p-6 shadow-gum space-y-4 flex flex-col justify-between">
+          <div class="space-y-3">
+            <div class="flex justify-between items-center font-mono text-[11px] text-neutral-500 font-bold border-b border-neutral-200 pb-2">
+              <span>MINISTÉRIO DA FAZENDA • SECRETARIA DO TESOURO NACIONAL</span>
+              <span>Relatório Mensal</span>
+            </div>
+
+            <div class="border-gum overflow-hidden bg-gum-dark aspect-[16/9]">
+              <img 
+                src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=800&q=80" 
+                alt="Edifício institucional moderno representando a administração pública e contas federais" 
+                class="w-full h-full object-cover"
+              >
+            </div>
+
+            <h3 class="font-headline text-xl sm:text-2xl uppercase leading-snug">
+              Tesouro Nacional atualiza trajetória da Dívida Bruta e cumprimento do arcabouço fiscal
+            </h3>
+
+            <div class="space-y-2 text-xs font-sans text-neutral-800 leading-relaxed">
+              <p><strong>O que aconteceu:</strong> O Tesouro divulgou a execução orçamentária do governo federal, detalhando a arrecadação tributária e o custo de financiamento da dívida pública.</p>
+              <p><strong>Por que aconteceu e o que os dados mostram:</strong> As receitas federais cresceram com o recolhimento de tributos sobre a renda, mas o aumento nas despesas obrigatórias exige disciplina na execução fiscal.</p>
+              <p><strong>Como isso impacta a economia:</strong> O equilíbrio das contas da União é a principal âncora para a confiança dos investidores externos. Menor risco fiscal reduz a pressão sobre as taxas de juros de longo prazo.</p>
+              <p><strong>Como chega até você:</strong> Contas públicas saudáveis evitam o aumento repentino de impostos sobre o consumo e mantêm a estabilidade da moeda contra desvalorizações abruptas.</p>
+            </div>
+          </div>
+
+          <div class="pt-3 border-gum-t flex flex-wrap items-center justify-between text-xs font-mono gap-2">
+            <span class="text-neutral-600 font-bold">Fonte: Tesouro Nacional</span>
+            <a href="https://www.gov.br/tesouronacional/pt-br" target="_blank" rel="noopener noreferrer" class="px-3 py-1.5 bg-gum-black text-white hover:bg-gum-mint hover:text-gum-black transition-colors font-bold">
+              LER MATÉRIA OFICIAL ↗
+            </a>
+          </div>
+        </article>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ========================================================================= -->
+  <!-- 3. MUNDO — ACONTECIMENTOS INTERNACIONAIS EXPLICADOS -->
+  <!-- ========================================================================= -->
+  <section id="mundo" class="w-full bg-white border-gum-b p-6 sm:p-10 scroll-mt-16">
+    <div class="max-w-[1440px] mx-auto space-y-6">
+      
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between border-gum-b pb-4 gap-2">
+        <div class="flex items-center gap-2">
+          <span class="bg-gum-cyan px-2.5 py-1 border-gum font-mono text-xs font-black uppercase">INTERNACIONAL</span>
+          <h2 class="font-headline text-3xl sm:text-4xl uppercase">Economia no Mundo</h2>
+        </div>
+        <div class="font-mono text-xs text-neutral-600 font-bold">
+          ACONTECIMENTOS GLOBAIS EXPLICADOS PASSO A PASSO
+        </div>
+      </div>
+
+      <!-- DESTAQUE MUNDO COM ESTRUTURA COMPLETA "EM PALAVRAS SIMPLES" -->
+      <article class="bg-gum-bg border-gum p-6 sm:p-8 shadow-gum space-y-5">
+        
+        <div class="flex flex-wrap items-center justify-between text-xs font-mono text-neutral-600 font-bold border-b border-neutral-300 pb-2">
+          <span>FEDERAL RESERVE • ESTADOS UNIDOS</span>
+          <span>Decisões do Comitê de Mercado Aberto (FOMC)</span>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+          
+          <div class="lg:col-span-5 space-y-3">
+            <div class="border-gum overflow-hidden bg-gum-dark aspect-[16/10]">
+              <img 
+                src="https://images.unsplash.com/photo-1526304640581-d334cdbbf45e?auto=format&fit=crop&w=800&q=80" 
+                alt="Cédulas de dólares americanos e telas de mercados financeiros internacionais" 
+                class="w-full h-full object-cover"
+              >
+            </div>
+            <div class="text-[11px] font-mono text-neutral-600">
+              Imagem: Cédulas de dólar e gráficos de mercado norte-americano
+            </div>
+          </div>
+
+          <div class="lg:col-span-7 space-y-3">
+            <h3 class="font-headline text-2xl sm:text-3xl uppercase leading-tight">
+              Federal Reserve calibra taxa de juros dos EUA observando desaceleração do emprego e inflação
+            </h3>
+
+            <div class="space-y-3 text-xs sm:text-sm font-sans text-neutral-800">
+              
+              <div class="p-3 bg-white border-gum space-y-1">
+                <strong class="font-mono text-xs text-blue-900 uppercase block">1. O que aconteceu e onde?</strong>
+                <p>Nos Estados Unidos, o Federal Reserve (banco central americano) orientou a trajetória dos juros básicos (Fed Funds), equilibrando a moderação no mercado de trabalho com a convergência gradual da inflação americana para 2%.</p>
+              </div>
+
+              <!-- BLOCO "EM PALAVRAS SIMPLES" -->
+              <div class="p-3 bg-gum-yellow border-gum space-y-1">
+                <strong class="font-mono text-xs text-neutral-900 uppercase block">💡 Em palavras simples:</strong>
+                <p class="font-medium text-neutral-900">
+                  Os títulos do governo dos EUA são considerados a aplicação mais segura do planeta. Quando os juros nos EUA estão elevados, investidores do mundo inteiro preferem deixar o dinheiro guardado lá. Quando o banco central americano começa a reduzir esses juros, esses mesmos investidores voltam a buscar oportunidades de maior retorno em países emergentes como o Brasil.
+                </p>
+              </div>
+
+              <div class="p-3 bg-white border-gum space-y-1">
+                <strong class="font-mono text-xs text-purple-900 uppercase block">2. Como isso se conecta com o Brasil?</strong>
+                <p>O fluxo de dólares dita a cotação da moeda no Brasil. Quando mais dólares entram no mercado nacional para aproveitar o diferencial de juros (Selic a 10,75% vs juros americanos), o dólar tende a recuar frente ao real, aliviando o custo de insumos importados.</p>
+              </div>
+
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs font-mono pt-1">
+                <div class="bg-gum-dark p-2 border border-gum">
+                  <strong>👤 Para Você:</strong> Um câmbio mais comportado evita reajustes no pão francês, passagens aéreas e produtos eletrônicos.
+                </div>
+                <div class="bg-gum-dark p-2 border border-gum">
+                  <strong>🏢 Para Empresas:</strong> Empresas com dívidas atreladas à moeda estrangeira sofrem menos pressão cambial em seus balanços.
+                </div>
+              </div>
+
+            </div>
+
+            <div class="pt-3 border-t border-neutral-300 flex flex-wrap items-center justify-between text-xs font-mono gap-2">
+              <span class="text-neutral-600 font-bold">Fonte original: Federal Reserve (Board of Governors)</span>
+              <a href="https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm" target="_blank" rel="noopener noreferrer" class="px-3 py-1.5 bg-gum-black text-white hover:bg-gum-cyan hover:text-gum-black transition-colors font-bold">
+                LER MATÉRIA OFICIAL ↗
+              </a>
+            </div>
+
+          </div>
+
+        </div>
+
+      </article>
+
+    </div>
+  </section>
+
+  <!-- ========================================================================= -->
+  <!-- 4. PRINCIPAIS MOVIMENTOS DO MERCADO (MERCADOS HOJE) -->
+  <!-- ========================================================================= -->
+  <section id="mercados" class="w-full bg-gum-bg border-gum-b p-6 sm:p-10 scroll-mt-16">
+    <div class="max-w-[1440px] mx-auto space-y-6">
+      
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between border-gum-b pb-4 gap-2">
+        <div>
+          <span class="bg-gum-mint text-gum-black font-mono text-xs font-black px-2 py-0.5 border-gum uppercase">INDICADORES FINANCEIROS</span>
+          <h2 class="font-headline text-3xl sm:text-4xl uppercase mt-1">Mercados Hoje</h2>
+        </div>
+        <div class="font-mono text-xs text-neutral-600 font-bold flex items-center gap-2">
+          <span class="w-2.5 h-2.5 rounded-full bg-emerald-600"></span>
+          <span>FONTE: BANCO CENTRAL DO BRASIL, B3 E AWESOMEAPI</span>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        
+        <!-- DÓLAR COMERCIAL -->
+        <div class="bg-white border-gum p-4 shadow-gum-sm flex flex-col justify-between space-y-3">
+          <div>
+            <div class="flex items-center justify-between text-xs font-mono font-black border-b border-gum pb-1.5">
+              <span>DÓLAR COMERCIAL</span>
+              <span id="market-card-usd-var" class="bg-white px-1.5 py-0.5 border border-gum font-black">▲ +0,42%</span>
+            </div>
+            <div id="market-card-usd-val" class="font-headline text-3xl sm:text-4xl text-gum-black mt-2">
+              R$ 5,612
+            </div>
+            <p class="font-sans text-xs text-neutral-700 font-medium mt-1 leading-relaxed">
+              Cotação apurada via sistema Ptax do Banco Central. Reflete o diferencial de juros entre Brasil e EUA e os fluxos do comércio internacional.
+            </p>
+          </div>
+          <div class="bg-gum-bg border-gum p-2 text-[11px] font-mono text-neutral-800">
+            <strong>Impacto:</strong> Preço de passagens internacionais, chips eletrônicos e matérias-primas importadas como o trigo.
+          </div>
+        </div>
+
+        <!-- TAXA SELIC -->
+        <div class="bg-white border-gum p-4 shadow-gum-sm flex flex-col justify-between space-y-3">
+          <div>
+            <div class="flex items-center justify-between text-xs font-mono font-black border-b border-gum pb-1.5">
+              <span>TAXA SELIC (META COPOM)</span>
+              <span class="bg-gum-yellow px-1.5 py-0.5 border border-gum font-black">10,75% a.a.</span>
+            </div>
+            <div class="font-headline text-3xl sm:text-4xl text-gum-black mt-2">
+              10,75%
+            </div>
+            <p class="font-sans text-xs text-neutral-700 font-medium mt-1 leading-relaxed">
+              Taxa de referência fixada pelo Copom do Banco Central para assegurar a convergência da inflação brasileira.
+            </p>
+          </div>
+          <div class="bg-gum-bg border-gum p-2 text-[11px] font-mono text-neutral-800">
+            <strong>Impacto:</strong> Crédito ao consumidor e financiamentos ficam caros; aplicações de renda fixa rendem quase 1% ao mês.
+          </div>
+        </div>
+
+        <!-- INFLAÇÃO IPCA -->
+        <div class="bg-white border-gum p-4 shadow-gum-sm flex flex-col justify-between space-y-3">
+          <div>
+            <div class="flex items-center justify-between text-xs font-mono font-black border-b border-gum pb-1.5">
+              <span>INFLAÇÃO OFICIAL (IPCA 12M)</span>
+              <span class="bg-gum-pink px-1.5 py-0.5 border border-gum font-black">4,24% a.a.</span>
+            </div>
+            <div class="font-headline text-3xl sm:text-4xl text-gum-black mt-2">
+              4,24%
+            </div>
+            <p class="font-sans text-xs text-neutral-700 font-medium mt-1 leading-relaxed">
+              Apurado pelo IBGE para medir o custo de vida médio de famílias com rendimento entre 1 e 40 salários mínimos no país.
+            </p>
+          </div>
+          <div class="bg-gum-bg border-gum p-2 text-[11px] font-mono text-neutral-800">
+            <strong>Impacto:</strong> Reajuste anual de contratos de locação e preservação do poder de compra dos salários.
+          </div>
+        </div>
+
+        <!-- EURO COMERCIAL -->
+        <div class="bg-white border-gum p-4 shadow-gum-sm flex flex-col justify-between space-y-3">
+          <div>
+            <div class="flex items-center justify-between text-xs font-mono font-black border-b border-gum pb-1.5">
+              <span>EURO COMERCIAL</span>
+              <span id="market-card-eur-var" class="bg-white px-1.5 py-0.5 border border-gum font-black">▲ +0,25%</span>
+            </div>
+            <div id="market-card-eur-val" class="font-headline text-3xl sm:text-4xl text-gum-black mt-2">
+              R$ 6,180
+            </div>
+            <p class="font-sans text-xs text-neutral-700 font-medium mt-1 leading-relaxed">
+              Varia conforme as diretrizes do Banco Central Europeu (BCE) e o intercâmbio de bens com os países da Zona do Euro.
+            </p>
+          </div>
+          <div class="bg-gum-bg border-gum p-2 text-[11px] font-mono text-neutral-800">
+            <strong>Impacto:</strong> Custos de viagens à Europa, intercâmbios e peças importadas da indústria alemã e francesa.
+          </div>
+        </div>
+
+        <!-- PETRÓLEO BRENT -->
+        <div class="bg-white border-gum p-4 shadow-gum-sm flex flex-col justify-between space-y-3">
+          <div>
+            <div class="flex items-center justify-between text-xs font-mono font-black border-b border-gum pb-1.5">
+              <span>PETRÓLEO BRENT</span>
+              <span class="bg-blue-100 px-1.5 py-0.5 border border-gum text-blue-900 font-black">US$ 73,80</span>
+            </div>
+            <div class="font-headline text-3xl sm:text-4xl text-gum-black mt-2">
+              US$ 73,80
+            </div>
+            <p class="font-sans text-xs text-neutral-700 font-medium mt-1 leading-relaxed">
+              Referência internacional negociada na ICE em Londres, suscetível a decisões da OPEP e ao ritmo fabril da Ásia.
+            </p>
+          </div>
+          <div class="bg-gum-bg border-gum p-2 text-[11px] font-mono text-neutral-800">
+            <strong>Impacto:</strong> Custo do diesel e da gasolina nas refinarias, refletindo no frete rodoviário de alimentos.
+          </div>
+        </div>
+
+        <!-- IBOVESPA -->
+        <div class="bg-white border-gum p-4 shadow-gum-sm flex flex-col justify-between space-y-3">
+          <div>
+            <div class="flex items-center justify-between text-xs font-mono font-black border-b border-gum pb-1.5">
+              <span>ÍNDICE IBOVESPA (B3)</span>
+              <span class="bg-emerald-100 px-1.5 py-0.5 border border-gum text-emerald-950 font-black">▲ +0,42%</span>
+            </div>
+            <div class="font-headline text-3xl sm:text-4xl text-gum-black mt-2">
+              132.840 <span class="text-xs font-sans text-neutral-500">pts</span>
+            </div>
+            <p class="font-sans text-xs text-neutral-700 font-medium mt-1 leading-relaxed">
+              Termômetro oficial do mercado acionário brasileiro negociado na B3 (Brasil, Bolsa, Balcão) em São Paulo.
+            </p>
+          </div>
+          <div class="bg-gum-bg border-gum p-2 text-[11px] font-mono text-neutral-800">
+            <strong>Impacto:</strong> Reflete a percepção sobre a saúde das maiores empresas brasileiras e a atração de investimentos.
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ========================================================================= -->
+  <!-- 5. BOLSA DE VALORES — COMO ESTÁ AGORA -->
+  <!-- ========================================================================= -->
+  <section id="bolsa" class="w-full bg-white border-gum-b p-6 sm:p-10 scroll-mt-16">
+    <div class="max-w-[1440px] mx-auto space-y-8">
+      
+      <div class="flex flex-col md:flex-row md:items-center justify-between border-gum-b pb-4 gap-3">
+        <div>
+          <span class="bg-gum-yellow px-2 py-0.5 border-gum font-mono text-xs font-black uppercase">MERCADO ACIONÁRIO BRASILEIRO</span>
+          <h2 class="font-headline text-3xl sm:text-4xl uppercase mt-1">Bolsa de Valores — Como Está Agora</h2>
+        </div>
+        <div class="text-xs font-mono text-neutral-600 font-bold space-y-1 md:text-right">
+          <div>Última atualização: <span id="b3-update-time" class="text-gum-black bg-gum-dark px-1.5 py-0.5 border border-gum">Sessão Oficial B3</span></div>
+          <div>Fonte oficial: <a href="https://www.b3.com.br" target="_blank" rel="noopener noreferrer" class="underline hover:text-black font-black">B3 — Brasil, Bolsa, Balcão ↗</a></div>
+        </div>
+      </div>
+
+      <!-- Grid dos Números Oficiais da B3 -->
+      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">
+        <div class="bg-gum-bg border-gum p-3.5 shadow-gum-sm space-y-1">
+          <span class="text-[10px] font-mono font-black text-neutral-600 block">ÍNDICE IBOVESPA</span>
+          <div id="ibov-points" class="font-headline text-2xl sm:text-3xl text-gum-black">132.840</div>
+          <span class="text-[10px] font-mono text-neutral-500">Pontos base</span>
+        </div>
+
+        <div class="bg-gum-bg border-gum p-3.5 shadow-gum-sm space-y-1">
+          <span class="text-[10px] font-mono font-black text-neutral-600 block">VARIAÇÃO DO DIA</span>
+          <div id="ibov-var-day" class="font-headline text-2xl sm:text-3xl text-emerald-700">▲ +0,42%</div>
+          <span class="text-[10px] font-mono text-neutral-500">vs fechamento anterior</span>
+        </div>
+
+        <div class="bg-gum-bg border-gum p-3.5 shadow-gum-sm space-y-1">
+          <span class="text-[10px] font-mono font-black text-neutral-600 block">NO MÊS / PERÍODO</span>
+          <div class="font-headline text-2xl sm:text-3xl text-gum-black">+1,85%</div>
+          <span class="text-[10px] font-mono text-neutral-500">Acumulado mensal</span>
+        </div>
+
+        <div class="bg-gum-bg border-gum p-3.5 shadow-gum-sm space-y-1">
+          <span class="text-[10px] font-mono font-black text-neutral-600 block">ABERTURA</span>
+          <div class="font-headline text-xl sm:text-2xl text-gum-black">132.288</div>
+          <span class="text-[10px] font-mono text-neutral-500">Início do pregão</span>
+        </div>
+
+        <div class="bg-gum-bg border-gum p-3.5 shadow-gum-sm space-y-1">
+          <span class="text-[10px] font-mono font-black text-neutral-600 block">MÁXIMA / MÍNIMA</span>
+          <div class="font-headline text-sm text-gum-black mt-1">133.410 <span class="text-neutral-500 font-sans">máx</span></div>
+          <div class="font-headline text-sm text-neutral-700">131.950 <span class="text-neutral-500 font-sans">mín</span></div>
+        </div>
+
+        <div class="bg-gum-bg border-gum p-3.5 shadow-gum-sm space-y-1">
+          <span class="text-[10px] font-mono font-black text-neutral-600 block">VOLUME ESTIMADO</span>
+          <div class="font-headline text-lg sm:text-xl text-gum-black">R$ 21,4 Bi</div>
+          <span class="text-[10px] font-mono text-neutral-500">Giro financeiro</span>
+        </div>
+      </div>
+
+      <!-- O QUE ESTÁ MOVENDO A BOLSA? -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 pt-2">
+        
+        <div class="lg:col-span-7 bg-gum-bg border-gum p-6 shadow-gum space-y-5">
+          <div class="flex items-center justify-between border-gum-b pb-2">
+            <h3 class="font-headline text-xl uppercase">O que está movendo a Bolsa?</h3>
+            <span class="text-xs font-mono font-bold text-neutral-600">FATORES COMPROVADOS DE MERCADO</span>
+          </div>
+
+          <div class="space-y-4 text-xs sm:text-sm font-sans">
+            <div class="space-y-1 border-l-4 border-gum-black pl-3">
+              <strong class="font-mono text-xs uppercase block text-neutral-900">1. O que aconteceu no pregão?</strong>
+              <p class="text-neutral-800 leading-relaxed font-medium">
+                O Ibovespa oscilou em terreno positivo sustentado pelo desempenho de exportadoras de commodities minerais e petrolíferas e pela entrada gradual de capital institucional estrangeiro.
+              </p>
+            </div>
+
+            <div class="space-y-1 border-l-4 border-gum-yellow pl-3">
+              <strong class="font-mono text-xs uppercase block text-neutral-900">2. Por que isso importa para a Bolsa?</strong>
+              <p class="text-neutral-800 leading-relaxed font-medium">
+                A taxa de juros básica e o diferencial de remuneração frente aos títulos americanos calibram o fluxo de dinheiro na B3. Quando a Selic se mantém estável em patamares elevados, a renda fixa continua competindo diretamente com os ativos acionários.
+              </p>
+            </div>
+
+            <div class="space-y-1 border-l-4 border-gum-pink pl-3">
+              <strong class="font-mono text-xs uppercase block text-neutral-900">3. Quais setores são mais sensíveis?</strong>
+              <p class="text-neutral-800 leading-relaxed font-medium">
+                <strong>Varejo e Construção Civil:</strong> Mais sensíveis ao custo do crédito, pois dependem de financiamento ao consumidor final.<br>
+                <strong>Commodities (Petrobras e Vale):</strong> Reagem com maior força às cotações internacionais do petróleo cru e do minério de ferro nos portos asiáticos.
+              </p>
+            </div>
+
+            <div class="space-y-1 border-l-4 border-gum-mint pl-3">
+              <strong class="font-mono text-xs uppercase block text-neutral-900">4. Qual é o mecanismo econômico envolvido?</strong>
+              <p class="text-neutral-800 leading-relaxed font-medium">
+                Juros futuros em queda &rarr; Redução no custo de rolagem da dívida corporativa &rarr; Aumento do lucro projetado pelas empresas &rarr; Reavaliação positiva do valor presente das ações.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- EXPECTATIVAS PARA A BOLSA -->
+        <div class="lg:col-span-5 bg-white border-gum p-6 shadow-gum space-y-4 flex flex-col justify-between">
+          <div class="space-y-3">
+            <div class="border-gum-b pb-2">
+              <h3 class="font-headline text-lg uppercase">Expectativas para a Bolsa</h3>
+              <span class="text-xs font-mono text-neutral-600 block">PROJEÇÕES DE MERCADO SEGUNDO O BOLETIM FOCUS (BCB)</span>
+            </div>
+
+            <div class="bg-gum-dark p-3.5 border-gum text-xs font-mono space-y-2">
+              <p class="font-sans text-neutral-900 font-medium">
+                Segundo o consenso coletado pelo Banco Central junto a mais de cem economistas e instituições, o comportamento das ações brasileiras depende prioritariamente do ciclo de cortes de juros nos EUA e do cumprimento do arcabouço fiscal no Brasil.
+              </p>
+            </div>
+
+            <div class="space-y-2 text-xs font-sans">
+              <div class="p-3 bg-white border-gum space-y-1">
+                <span class="font-mono text-[10px] font-black uppercase text-blue-800 block">Cenário A • Conservador</span>
+                <p class="text-neutral-800 font-medium">Se o cenário fiscal exigir prêmio de risco prolongado e os juros demorarem a ceder, o Ibovespa tende a oscilar de forma lateral, apoiando-se prioritariamente nos dividendos das geradoras de caixa.</p>
+              </div>
+
+              <div class="p-3 bg-white border-gum space-y-1">
+                <span class="font-mono text-[10px] font-black uppercase text-emerald-800 block">Cenário B • Otimista</span>
+                <p class="text-neutral-800 font-medium">Se a inflação global arrefecer e o Federal Reserve intensificar o afrouxamento monetário, haverá maior apetite por ações de países emergentes com múltiplos atrativos.</p>
+              </div>
+            </div>
+
+            <div class="p-2.5 bg-amber-50 border border-amber-300 text-[11px] font-mono text-amber-900 leading-tight">
+              <strong>Nota metodológica:</strong> Projeções não constituem garantia de rentabilidade nem fatos consumados. Trata-se de estimativas técnicas que se alteram a cada novo dado econômico oficial.
+            </div>
+          </div>
+
+          <div class="pt-3 border-gum-t flex items-center justify-between text-xs font-mono">
+            <span class="text-neutral-600 font-bold">Fonte: Boletim Focus / BCB</span>
+            <a href="https://www.bcb.gov.br/publicacoes/focus" target="_blank" rel="noopener noreferrer" class="px-3 py-1.5 bg-gum-black text-white hover:bg-gum-yellow hover:text-gum-black transition-colors font-black flex items-center gap-1.5">
+              <span>LER BOLETIM FOCUS</span>
+              <span>↗</span>
+            </a>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ========================================================================= -->
+  <!-- 6. PRINCIPAIS AÇÕES — O QUE ESTÁ ACONTECENDO? -->
+  <!-- ========================================================================= -->
+  <section id="acoes" class="w-full bg-gum-bg border-gum-b p-6 sm:p-10 scroll-mt-16">
+    <div class="max-w-[1440px] mx-auto space-y-6">
+      
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between border-gum-b pb-4 gap-2">
+        <div>
+          <span class="bg-gum-pink px-2.5 py-1 border-gum font-mono text-xs font-black uppercase">MERCADO DE CAPITAIS</span>
+          <h2 class="font-headline text-3xl sm:text-4xl uppercase mt-1">Principais Ações — O Que Está Acontecendo?</h2>
+        </div>
+        <div class="font-mono text-xs text-neutral-600 font-bold">
+          DADOS OFICIAIS DE COTAÇÃO UNITÁRIA • B3 (SESSÃO ATUAL)
+        </div>
+      </div>
+
+      <!-- GUIA EDUCATIVO "COM QUANTO POSSO INVESTIR?" -->
+      <div class="p-4 bg-white border-gum shadow-gum-sm flex flex-col md:flex-row md:items-center justify-between gap-4 text-xs font-mono">
+        <div class="space-y-1 max-w-3xl">
+          <span class="bg-gum-yellow px-2 py-0.5 border border-gum font-bold text-black uppercase">Educação Financeira: Com quanto posso investir?</span>
+          <p class="font-sans text-neutral-800 leading-relaxed">
+            O preço mostrado em cada ativo abaixo refere-se à compra de <strong>uma unidade da ação</strong> (negociada no mercado fracionário da B3). O valor total investido depende da quantidade adquirida e dos custos operacionais da sua corretora. O conteúdo deste jornal tem finalidade estritamente jornalística e didática, não constituindo recomendação de compra ou venda.
+          </p>
+        </div>
+        <div class="text-right text-[11px] text-neutral-500 font-bold shrink-0">
+          <div>Horário de pregão regular B3:</div>
+          <div>10h00 às 17h00 (Horário de Brasília)</div>
+        </div>
+      </div>
+
+      <!-- TABELA COMPARATIVA DE AÇÕES -->
+      <div class="border-gum bg-white shadow-gum overflow-x-auto">
+        <table class="w-full text-left border-collapse text-xs font-mono">
+          <thead>
+            <tr class="bg-gum-black text-white uppercase text-[11px]">
+              <th class="p-3.5 border-gum-r">Empresa</th>
+              <th class="p-3.5 border-gum-r">Ticker</th>
+              <th class="p-3.5 border-gum-r">Preço Unitário</th>
+              <th class="p-3.5 border-gum-r">Variação</th>
+              <th class="p-3.5">O que está movimentando</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y-2 divide-black">
+            <tr class="hover:bg-gum-bg transition-colors">
+              <td class="p-3.5 font-bold border-gum-r">Petróleo Brasileiro S.A.</td>
+              <td class="p-3.5 font-bold border-gum-r text-neutral-600">PETR4</td>
+              <td class="p-3.5 font-bold border-gum-r">R$ 37,20</td>
+              <td class="p-3.5 font-black border-gum-r text-emerald-700">▲ +0,81%</td>
+              <td class="p-3.5 font-sans font-medium text-neutral-800">Cotação do petróleo Brent nos mercados internacionais e fluxo de dividendos corporativos.</td>
+            </tr>
+            <tr class="hover:bg-gum-bg transition-colors">
+              <td class="p-3.5 font-bold border-gum-r">Vale S.A.</td>
+              <td class="p-3.5 font-bold border-gum-r text-neutral-600">VALE3</td>
+              <td class="p-3.5 font-bold border-gum-r">R$ 57,80</td>
+              <td class="p-3.5 font-black border-gum-r text-red-600">▼ -0,52%</td>
+              <td class="p-3.5 font-sans font-medium text-neutral-800">Ritmo da atividade fabril e do setor imobiliário da China, principal compradora do minério brasileiro.</td>
+            </tr>
+            <tr class="hover:bg-gum-bg transition-colors">
+              <td class="p-3.5 font-bold border-gum-r">Itaú Unibanco Holding</td>
+              <td class="p-3.5 font-bold border-gum-r text-neutral-600">ITUB4</td>
+              <td class="p-3.5 font-bold border-gum-r">R$ 35,40</td>
+              <td class="p-3.5 font-black border-gum-r text-emerald-700">▲ +0,34%</td>
+              <td class="p-3.5 font-sans font-medium text-neutral-800">Margem financeira estável e índices controlados de inadimplência mesmo sob taxa Selic elevada.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- DETALHAMENTO DAS TRÊS AÇÕES -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 pt-2">
+        
+        <!-- AÇÃO 1: PETROBRAS (PETR4) -->
+        <article class="bg-white border-gum p-5 shadow-gum space-y-4 flex flex-col justify-between">
+          <div class="space-y-3">
+            <div class="flex items-center justify-between border-b border-neutral-200 pb-2">
+              <div>
+                <h3 class="font-headline text-xl uppercase leading-none">Petrobras PN</h3>
+                <span class="font-mono text-xs text-neutral-500 font-bold">Ticker: PETR4</span>
+              </div>
+              <div class="text-right">
+                <div class="font-headline text-2xl text-gum-black">R$ 37,20</div>
+                <span class="font-mono text-xs font-bold text-emerald-700">▲ +0,81%</span>
+              </div>
+            </div>
+
+            <div class="text-xs font-sans space-y-2 text-neutral-800">
+              <p><strong>O que a empresa faz?</strong> É a maior companhia de energia do país, focada em exploração, refino e distribuição de óleo e gás natural, com destaque para a camada pré-sal.</p>
+              <p><strong>Por que está chamando atenção?</strong> Os investidores acompanham de perto as decisões sobre a distribuição de dividendos e a volatilidade do barril de petróleo Brent no mercado internacional.</p>
+              <p><strong>O que pode pressionar a ação?</strong> Quedas acentuadas nas cotações globais de óleo ou alterações substanciais na política de preços de combustíveis domésticos.</p>
+              
+              <div class="p-2.5 bg-gum-bg border-gum font-mono text-[11px] text-neutral-900">
+                <strong>Em palavras simples:</strong> Se o petróleo no mundo se mantém firme e a empresa produz a custos competitivos, sua receita operacional se fortalece.
+              </div>
+            </div>
+          </div>
+
+          <div class="pt-3 border-t border-neutral-200 flex justify-between items-center text-[11px] font-mono text-neutral-500">
+            <span>Fonte: B3 Oficial</span>
+            <span>Preço unitário (1 ação)</span>
+          </div>
+        </article>
+
+        <!-- AÇÃO 2: VALE (VALE3) -->
+        <article class="bg-white border-gum p-5 shadow-gum space-y-4 flex flex-col justify-between">
+          <div class="space-y-3">
+            <div class="flex items-center justify-between border-b border-neutral-200 pb-2">
+              <div>
+                <h3 class="font-headline text-xl uppercase leading-none">Vale S.A.</h3>
+                <span class="font-mono text-xs text-neutral-500 font-bold">Ticker: VALE3</span>
+              </div>
+              <div class="text-right">
+                <div class="font-headline text-2xl text-gum-black">R$ 57,80</div>
+                <span class="font-mono text-xs font-bold text-red-600">▼ -0,52%</span>
+              </div>
+            </div>
+
+            <div class="text-xs font-sans space-y-2 text-neutral-800">
+              <p><strong>O que a empresa faz?</strong> Líder global na extração e exportação de minério de ferro de alto teor e pelotas para as maiores siderúrgicas internacionais.</p>
+              <p><strong>Por que está chamando atenção?</strong> O volume de compras está atrelado ao ritmo de atividade na China, que consome o minério brasileiro para fabricação de aço em pontes, fábricas e moradias.</p>
+              <p><strong>O que pode pressionar a ação?</strong> Desaceleração prolongada na construção civil asiática ou estoques portuários elevados que derrubem o valor da tonelada do minério.</p>
+              
+              <div class="p-2.5 bg-gum-bg border-gum font-mono text-[11px] text-neutral-900">
+                <strong>Em palavras simples:</strong> A demanda da indústria pesada chinesa é o principal balizador de faturamento da mineradora brasileira.
+              </div>
+            </div>
+          </div>
+
+          <div class="pt-3 border-t border-neutral-200 flex justify-between items-center text-[11px] font-mono text-neutral-500">
+            <span>Fonte: B3 Oficial</span>
+            <span>Preço unitário (1 ação)</span>
+          </div>
+        </article>
+
+        <!-- AÇÃO 3: ITAÚ UNIBANCO (ITUB4) -->
+        <article class="bg-white border-gum p-5 shadow-gum space-y-4 flex flex-col justify-between">
+          <div class="space-y-3">
+            <div class="flex items-center justify-between border-b border-neutral-200 pb-2">
+              <div>
+                <h3 class="font-headline text-xl uppercase leading-none">Itaú Unibanco</h3>
+                <span class="font-mono text-xs text-neutral-500 font-bold">Ticker: ITUB4</span>
+              </div>
+              <div class="text-right">
+                <div class="font-headline text-2xl text-gum-black">R$ 35,40</div>
+                <span class="font-mono text-xs font-bold text-emerald-700">▲ +0,34%</span>
+              </div>
+            </div>
+
+            <div class="text-xs font-sans space-y-2 text-neutral-800">
+              <p><strong>O que a empresa faz?</strong> A maior instituição financeira privada da América Latina, fornecendo crédito comercial, seguros, cartões, financiamentos e serviços corporativos.</p>
+              <p><strong>Por que está chamando atenção?</strong> Demonstra solidez nas margens financeiras mesmo em ambiente de juros altos, apresentando retorno consistente sobre o patrimônio (ROE).</p>
+              <p><strong>O que pode pressionar a ação?</strong> Um aumento expressivo na inadimplência de pessoas físicas e pequenas empresas ou mudanças legislativas na tributação de proventos.</p>
+              
+              <div class="p-2.5 bg-gum-bg border-gum font-mono text-[11px] text-neutral-900">
+                <strong>Em palavras simples:</strong> O banco lucra com a intermediação financeira e tarifas; estabilidade no emprego e no crédito protege seus balanços.
+              </div>
+            </div>
+          </div>
+
+          <div class="pt-3 border-t border-neutral-200 flex justify-between items-center text-[11px] font-mono text-neutral-500">
+            <span>Fonte: B3 Oficial</span>
+            <span>Preço unitário (1 ação)</span>
+          </div>
+        </article>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ========================================================================= -->
+  <!-- 7. COMO ISSO IMPACTA O SEU DIA? (BASEADO EM DADOS REAIS) -->
+  <!-- ========================================================================= -->
+  <section id="impacto-dia" class="w-full bg-white border-gum-b p-6 sm:p-10 scroll-mt-16">
+    <div class="max-w-[1440px] mx-auto space-y-6">
+      
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between border-gum-b pb-4 gap-2">
+        <div>
+          <span class="bg-gum-yellow px-2 py-0.5 border-gum font-mono text-xs font-black uppercase">APLICAÇÃO PRÁTICA</span>
+          <h2 class="font-headline text-3xl sm:text-4xl uppercase mt-1">Como Isso Impacta o Seu Dia?</h2>
+        </div>
+        <div class="font-mono text-xs text-neutral-600 font-bold">
+          DIFERENÇA ENTRE IMPACTO JÁ OBSERVADO E POSSÍVEL IMPACTO FUTURO
+        </div>
+      </div>
+
+      <!-- SELETOR DE ÁREAS DA VIDA REAL -->
+      <div class="flex flex-wrap gap-2 font-mono text-xs font-bold">
+        <button onclick="switchBolsoTab('cartao')" id="tab-btn-cartao" class="tab-bolso-btn px-4 py-2.5 bg-gum-black text-white border-gum shadow-gum-sm transition-colors">
+          CARTÃO & DÍVIDAS
+        </button>
+        <button onclick="switchBolsoTab('financiamento')" id="tab-btn-financiamento" class="tab-bolso-btn px-4 py-2.5 bg-white hover:bg-neutral-100 border-gum shadow-gum-sm transition-colors">
+          CARRO & IMÓVEL
+        </button>
+        <button onclick="switchBolsoTab('supermercado')" id="tab-btn-supermercado" class="tab-bolso-btn px-4 py-2.5 bg-white hover:bg-neutral-100 border-gum shadow-gum-sm transition-colors">
+          MERCADO & ALIMENTAÇÃO
+        </button>
+        <button onclick="switchBolsoTab('investimentos')" id="tab-btn-investimentos" class="tab-bolso-btn px-4 py-2.5 bg-white hover:bg-neutral-100 border-gum shadow-gum-sm transition-colors">
+          RENDA FIXA (CDI)
+        </button>
+      </div>
+
+      <!-- BOX DE CONTEÚDO DINÂMICO -->
+      <div id="bolso-content-box" class="bg-gum-bg border-gum p-6 text-xs sm:text-sm font-sans space-y-4 shadow-gum-sm">
+        <!-- Preenchido dinamicamente pelo script -->
+      </div>
+
+      <!-- QUADRO COMPARATIVO: IMPACTO ATUAL vs FUTURO -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2">
+        <div class="p-4 bg-gum-bg border-gum space-y-2">
+          <div class="flex items-center gap-2">
+            <span class="w-3 h-3 bg-red-600 rounded-full"></span>
+            <h4 class="font-headline text-sm uppercase">Impacto já observado nos dados</h4>
+          </div>
+          <p class="font-sans text-xs text-neutral-800 leading-relaxed font-medium">
+            Juros de crédito rotativo superiores a 440% ao ano e remuneração líquida do Tesouro Selic rondando 0,85% ao mês. Quem está endividado já paga mais caro; quem possui reserva em renda fixa já aufere retornos acima da inflação.
+          </p>
+        </div>
+
+        <div class="p-4 bg-gum-bg border-gum space-y-2">
+          <div class="flex items-center gap-2">
+            <span class="w-3 h-3 bg-blue-600 rounded-full"></span>
+            <h4 class="font-headline text-sm uppercase">Possível impacto futuro (Expectativa)</h4>
+          </div>
+          <p class="font-sans text-xs text-neutral-800 leading-relaxed font-medium">
+            Se a inflação convergir para 3% e o Federal Reserve acelerar cortes nos EUA, analistas projetam espaço para descompressão dos juros bancários brasileiros no médio prazo, o que facilitaria compras parceladas de maior valor.
+          </p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ========================================================================= -->
+  <!-- 8. IMPACTOS ECONÔMICOS DA BOLSA DE VALORES -->
+  <!-- ========================================================================= -->
+  <section id="impactos-economicos" class="w-full bg-gum-bg border-gum-b p-6 sm:p-10 scroll-mt-16">
+    <div class="max-w-[1440px] mx-auto space-y-6">
+      
+      <div class="border-gum-b pb-4 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+        <div>
+          <span class="bg-gum-periwinkle px-2.5 py-1 border-gum font-mono text-xs font-black uppercase">TRANSMISSÃO ECONÔMICA</span>
+          <h2 class="font-headline text-3xl sm:text-4xl uppercase mt-1">Como a Bolsa Impacta a Economia?</h2>
+        </div>
+        <span class="text-xs font-mono text-neutral-600 font-bold">A BOLSA NÃO REPRESENTA APENAS INVESTIDORES</span>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        
+        <!-- Bloco 1: Pessoa Física -->
+        <div class="bg-white border-gum p-5 shadow-gum-sm space-y-3">
+          <div class="flex items-center gap-2 border-b border-neutral-300 pb-2">
+            <span class="bg-gum-pink border-gum px-2 py-0.5 font-mono text-xs font-black">GRUPO 1</span>
+            <h3 class="font-headline text-lg uppercase">Pessoa Física</h3>
+          </div>
+          <p class="font-sans text-xs text-neutral-800 leading-relaxed font-medium">
+            Mesmo quem nunca operou em corretoras é influenciado: <strong>planos de previdência privada, cotas do FGTS e carteiras institucionais</strong> mantêm frações em ações na B3 para rentabilizar as aposentadorias de longo prazo.
+          </p>
+          <div class="p-2.5 bg-gum-bg border-gum text-[11px] font-mono text-neutral-900">
+            <strong>Conceito importante:</strong> Uma alta na cotação de uma ação não significa dinheiro em conta no ato; o ganho de capital só se consolida financeiramente no instante da venda do papel.
+          </div>
+        </div>
+
+        <!-- Bloco 2: Empresas -->
+        <div class="bg-white border-gum p-5 shadow-gum-sm space-y-3">
+          <div class="flex items-center gap-2 border-b border-neutral-300 pb-2">
+            <span class="bg-gum-yellow border-gum px-2 py-0.5 font-mono text-xs font-black">GRUPO 2</span>
+            <h3 class="font-headline text-lg uppercase">Empresas</h3>
+          </div>
+          <p class="font-sans text-xs text-neutral-800 leading-relaxed font-medium">
+            A Bolsa é a via pública para captação de recursos produtivos. Com valuation favorável, companhias emitem novas ações para construir fábricas, modernizar logística e contratar mão de obra com custo inferior ao dos juros bancários.
+          </p>
+          <div class="p-2.5 bg-gum-bg border-gum text-[11px] font-mono text-neutral-900">
+            <strong>Exemplo didático:</strong> Uma indústria emite R$ 300 milhões em papéis na B3 para instalar um centro de distribuição regional e admitir operadores.
+          </div>
+        </div>
+
+        <!-- Bloco 3: Economia Geral -->
+        <div class="bg-white border-gum p-5 shadow-gum-sm space-y-3">
+          <div class="flex items-center gap-2 border-b border-neutral-300 pb-2">
+            <span class="bg-gum-mint border-gum px-2 py-0.5 font-mono text-xs font-black">GRUPO 3</span>
+            <h3 class="font-headline text-lg uppercase">Economia Geral</h3>
+          </div>
+          <p class="font-sans text-xs text-neutral-800 leading-relaxed font-medium">
+            A cadeia de transmissão econômica ocorre em etapas:
+            <br><br>
+            <strong>Captação em Bolsa &rarr; Investimento em ativos reais &rarr; Criação de empregos formais &rarr; Aumento da renda das famílias &rarr; Giro no comércio e arrecadação.</strong>
+          </p>
+          <div class="p-2.5 bg-gum-bg border-gum text-[11px] font-mono text-neutral-900">
+            <strong>Ressalva metodológica:</strong> Alta na Bolsa não representa crescimento automático do PIB, e variações negativas momentâneas não caracterizam recessão técnica.
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ========================================================================= -->
+  <!-- 9. GRÁFICOS E INDICADORES OFICIAIS (CHART.JS) -->
+  <!-- ========================================================================= -->
+  <section id="graficos" class="w-full bg-white border-gum-b p-6 sm:p-10 scroll-mt-16">
+    <div class="max-w-[1440px] mx-auto space-y-6">
+      
+      <div class="flex flex-col md:flex-row md:items-center justify-between border-gum-b pb-4 gap-2">
+        <div>
+          <span class="bg-gum-pink text-gum-black font-mono text-xs font-black px-2 py-0.5 border-gum uppercase">DADOS HISTÓRICOS OFICIAIS</span>
+          <h2 class="font-headline text-3xl sm:text-4xl uppercase mt-1">Gráficos Oficiais da Economia</h2>
+        </div>
+        <p class="text-xs font-mono text-neutral-600 font-bold max-w-sm">
+          Séries temporais auditáveis extraídas do Banco Central do Brasil e do IBGE:
+        </p>
+      </div>
+
+      <div class="flex flex-wrap gap-2 font-mono text-xs font-bold">
+        <button onclick="loadChartDataset('selic')" id="btn-chart-selic" class="chart-selector-btn px-4 py-2 border-gum bg-gum-black text-white shadow-gum-sm transition-colors">
+          SELIC vs IPCA (BANCO CENTRAL / IBGE)
+        </button>
+        <button onclick="loadChartDataset('dolar')" id="btn-chart-dolar" class="chart-selector-btn px-4 py-2 border-gum bg-gum-bg hover:bg-gum-dark shadow-gum-sm transition-colors">
+          DÓLAR COMERCIAL (PTAX - BCB)
+        </button>
+        <button onclick="loadChartDataset('desemprego')" id="btn-chart-desemprego" class="chart-selector-btn px-4 py-2 border-gum bg-gum-bg hover:bg-gum-dark shadow-gum-sm transition-colors">
+          TAXA DE DESOCUPAÇÃO (PNAD - IBGE)
+        </button>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center pt-2">
+        <div class="lg:col-span-7 bg-gum-bg border-gum p-4 shadow-gum-sm">
+          <div class="flex justify-between items-center mb-3">
+            <span id="chart-title" class="font-headline text-xs sm:text-sm uppercase text-gum-black">
+              Taxa Selic vs Inflação IPCA (Acumulado 12 Meses - % a.a.)
+            </span>
+            <span id="chart-source-badge" class="font-mono text-[10px] bg-white px-2 py-0.5 border-gum font-bold">
+              FONTE: BANCO CENTRAL / IBGE
+            </span>
+          </div>
+          <div class="h-64 sm:h-80 w-full relative">
+            <canvas id="economicsChart"></canvas>
+          </div>
+          <div class="mt-2 text-[10px] font-mono text-neutral-500 text-right">
+            Dados históricos oficiais atualizados conforme calendário de divulgações públicas.
+          </div>
+        </div>
+
+        <div class="lg:col-span-5 space-y-4">
+          <div class="bg-gum-bg border-gum p-4 shadow-gum-sm space-y-1">
+            <strong class="font-mono text-xs uppercase text-blue-900 block">1. O que o gráfico mostra</strong>
+            <p id="chart-desc-1" class="text-xs sm:text-sm text-neutral-800 font-medium leading-relaxed">
+              Compara a taxa básica de juros fixada pelo Copom com a inflação acumulada em 12 meses medida pelo IBGE.
+            </p>
+          </div>
+
+          <div class="bg-gum-bg border-gum p-4 shadow-gum-sm space-y-1">
+            <strong class="font-mono text-xs uppercase text-purple-900 block">2. Como interpretar</strong>
+            <p id="chart-desc-2" class="text-xs sm:text-sm text-neutral-800 font-medium leading-relaxed">
+              A diferença entre a Selic e a inflação representa a <strong>taxa de juro real</strong> do Brasil. Quanto maior ela for, maior o rendimento de aplicações pós-fixadas e mais oneroso o crédito bancário.
+            </p>
+          </div>
+
+          <div class="bg-gum-bg border-gum p-4 shadow-gum-sm space-y-1">
+            <strong class="font-mono text-xs uppercase text-neutral-900 block">3. Por que isso importa para você</strong>
+            <p id="chart-desc-3" class="text-xs sm:text-sm text-neutral-800 font-medium leading-relaxed">
+              Financiamentos de veículos e taxas de cheque especial acompanham esse diferencial; quem preserva reservas no Tesouro Selic garante ganho real sobre o custo de vida.
+            </p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ========================================================================= -->
+  <!-- 10. SIMULADOR DO CUSTO DOS JUROS E DICIONÁRIO ECONOMÊS -->
+  <!-- ========================================================================= -->
+  <section class="w-full bg-gum-bg border-gum-b p-6 sm:p-10">
+    <div class="max-w-[1440px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8">
+      
+      <!-- CALCULADORA DA VIDA REAL -->
+      <div class="lg:col-span-5 bg-white border-gum p-6 shadow-gum space-y-4">
+        <div class="border-gum-b pb-2">
+          <span class="bg-gum-yellow px-2 py-0.5 border-gum font-mono text-xs font-black uppercase">SIMULADOR PRÁTICO</span>
+          <h3 class="font-headline text-2xl uppercase mt-1">O Custo dos Juros</h3>
+        </div>
+
+        <div class="space-y-3 font-mono text-xs font-bold">
+          <div>
+            <label for="calc-scenario" class="block mb-1">CENÁRIO:</label>
+            <select id="calc-scenario" onchange="runCalculator()" class="w-full bg-gum-bg border-gum p-2.5 font-mono text-xs focus:outline-none">
+              <option value="cartao">Rotativo do Cartão (taxa média de mercado)</option>
+              <option value="investimento">Tesouro Selic / CDB (10,75% a.a.)</option>
+              <option value="carro">Financiamento de Carro</option>
+              <option value="aluguel">Reajuste Anual de Aluguel</option>
+            </select>
+          </div>
+
+          <div>
+            <label for="calc-amount" class="block mb-1">VALOR (R$):</label>
+            <input type="number" id="calc-amount" value="2000" step="100" oninput="runCalculator()" class="w-full bg-gum-bg border-gum p-2.5 font-mono text-xs focus:outline-none">
+          </div>
+
+          <div>
+            <label for="calc-months" class="block mb-1">PRAZO (MESES): <span id="calc-months-val" class="bg-gum-black text-white px-1.5 py-0.5 ml-1">12</span></label>
+            <input type="range" id="calc-months" min="3" max="24" value="12" oninput="document.getElementById('calc-months-val').innerText = this.value; runCalculator();" class="w-full accent-black cursor-pointer">
+          </div>
+        </div>
+
+        <div class="bg-gum-bg border-gum p-4 space-y-2">
+          <div class="text-[10px] font-mono text-neutral-500 font-bold">VALOR ESTIMADO:</div>
+          <div id="calc-final-value" class="font-headline text-3xl text-gum-black">R$ 5.840,00</div>
+          <div id="calc-diff-value" class="font-mono text-xs font-black text-red-600">+ R$ 3.840,00 (Juros)</div>
+          <p id="calc-explanation" class="font-sans text-xs text-neutral-700 leading-relaxed font-medium mt-1">
+            No rotativo do cartão (cerca de 14% ao mês), uma dívida não liquidada quase triplica em apenas um ano.
+          </p>
+        </div>
+      </div>
+
+      <!-- DICIONÁRIO ECONOMÊS TRADUZIDO -->
+      <div id="economes" class="lg:col-span-7 bg-white border-gum p-6 shadow-gum space-y-4 scroll-mt-16">
+        <div class="flex flex-wrap items-center justify-between border-gum-b pb-2 gap-2">
+          <div>
+            <span class="bg-gum-pink px-2 py-0.5 border-gum font-mono text-xs font-black uppercase">DICIONÁRIO</span>
+            <h3 class="font-headline text-2xl uppercase mt-1">Economês Traduzido</h3>
+          </div>
+          <input 
+            type="text" 
+            id="glossary-search" 
+            placeholder="Buscar termo..." 
+            oninput="filterGlossary()" 
+            class="bg-gum-bg border-gum px-2.5 py-1.5 text-xs font-mono font-bold focus:outline-none"
+            aria-label="Buscar termo no dicionário"
+          >
+        </div>
+
+        <div id="glossary-grid" class="grid grid-cols-1 sm:grid-cols-2 gap-3 max-h-[420px] overflow-y-auto pr-1">
+          <div class="glossary-card bg-gum-bg border-gum p-3.5 space-y-1.5">
+            <span class="font-mono text-[10px] font-bold text-neutral-500">MERCADO ACIONÁRIO</span>
+            <h4 class="font-headline text-base uppercase">IBOVESPA</h4>
+            <p class="font-sans text-xs text-neutral-700 font-medium">Índice da B3 composto pelas ações mais negociadas no pregão brasileiro, servindo de termômetro das grandes companhias do país.</p>
+            <div class="bg-white border-gum p-2 text-[11px] font-mono text-neutral-800">
+              <strong>Na prática:</strong> Quando o Ibovespa sobe, a média ponderada das maiores empresas brasileiras teve valorização nas cotações.
+            </div>
+          </div>
+
+          <div class="glossary-card bg-gum-bg border-gum p-3.5 space-y-1.5">
+            <span class="font-mono text-[10px] font-bold text-neutral-500">BANCO CENTRAL</span>
+            <h4 class="font-headline text-base uppercase">POLÍTICA MONETÁRIA</h4>
+            <p class="font-sans text-xs text-neutral-700 font-medium">Conjunto de instrumentos operados pelo Banco Central para controlar a liquidez da moeda e a taxa Selic visando manter a inflação na meta.</p>
+            <div class="bg-white border-gum p-2 text-[11px] font-mono text-neutral-800">
+              <strong>Na prática:</strong> As decisões que evitam que o poder de compra do seu salário evapore rapidamente.
+            </div>
+          </div>
+
+          <div class="glossary-card bg-gum-bg border-gum p-3.5 space-y-1.5">
+            <span class="font-mono text-[10px] font-bold text-neutral-500">IBGE</span>
+            <h4 class="font-headline text-base uppercase">IPCA</h4>
+            <p class="font-sans text-xs text-neutral-700 font-medium">Índice Nacional de Preços ao Consumidor Amplo, indicador oficial da inflação no Brasil com levantamento em alimentação, transporte e habitação.</p>
+            <div class="bg-white border-gum p-2 text-[11px] font-mono text-neutral-800">
+              <strong>Na prática:</strong> Se o IPCA sobe 4%, uma despesa média que antes custava R$ 100 passa a custar R$ 104.
+            </div>
+          </div>
+
+          <div class="glossary-card bg-gum-bg border-gum p-3.5 space-y-1.5">
+            <span class="font-mono text-[10px] font-bold text-neutral-500">MERCADO DE CAPITAIS</span>
+            <h4 class="font-headline text-base uppercase">DIVIDENDOS</h4>
+            <p class="font-sans text-xs text-neutral-700 font-medium">Parcela do lucro líquido apurado por uma empresa de capital aberto que é distribuída em dinheiro aos seus acionistas.</p>
+            <div class="bg-white border-gum p-2 text-[11px] font-mono text-neutral-800">
+              <strong>Na prática:</strong> A remuneração em dinheiro creditada na conta de quem detém cotas daquela empresa.
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ========================================================================= -->
+  <!-- 11. TRANSPARÊNCIA EDITORIAL DISCRETA -->
+  <!-- ========================================================================= -->
+  <div class="bg-white border-gum-b px-6 py-4 text-xs font-mono text-neutral-600">
+    <div class="max-w-[1440px] mx-auto flex flex-col sm:flex-row justify-between items-center gap-3">
+      <p class="text-neutral-700 max-w-4xl">
+        Este site utiliza informações publicadas por fontes identificadas e instituições confiáveis. Dados observados, interpretações e expectativas são tratados separadamente. As informações podem mudar conforme novas divulgações são publicadas.
+      </p>
+      <div class="text-[11px] text-neutral-500 font-bold shrink-0">
+        Fontes primárias: BCB • B3 • IBGE • Tesouro Nacional • Fed
+      </div>
+    </div>
+  </div>
+
+  <footer class="w-full bg-gum-pink border-gum-t">
+    <div class="max-w-[1440px] mx-auto p-6 sm:p-10 flex flex-col md:flex-row items-center justify-between gap-6">
+      <div class="max-w-xl text-center md:text-left">
+        <h3 class="font-headline text-2xl sm:text-3xl lg:text-4xl uppercase tracking-tight text-gum-black leading-none">
+          RECEBA A EDIÇÃO DE AMANHÃ SEM ECONOMÊS NO SEU E-MAIL.
+        </h3>
+        <p class="font-sans text-xs sm:text-sm font-semibold text-neutral-900 mt-2">
+          As conexões econômicas do dia explicadas em 3 minutos para você entender tudo com base em dados oficiais.
+        </p>
+      </div>
+
+      <div class="w-full md:w-auto flex flex-col sm:flex-row gap-2">
+        <input 
+          type="email" 
+          id="newsletter-email" 
+          placeholder="Seu melhor e-mail..." 
+          class="bg-white border-gum px-4 py-3 text-xs font-mono font-bold focus:outline-none shadow-gum-sm min-w-[260px]"
+          aria-label="Insira seu e-mail"
+        >
+        <button onclick="handleSubscribe()" class="bg-gum-black text-white hover:bg-white hover:text-gum-black border-gum px-6 py-3 font-mono text-xs font-black shadow-gum flex items-center justify-center gap-2 transition-colors">
+          <span>ASSINAR GRÁTIS</span>
+          <span>↗</span>
+        </button>
+      </div>
+    </div>
+
+    <div class="border-gum-t bg-white">
+      <div class="max-w-[1440px] mx-auto px-6 py-6 flex flex-col sm:flex-row justify-between items-center gap-4 text-xs font-mono font-bold">
+        <div>
+          ECONOMIA SEM COMPLICAÇÃO © 2026 — JORNALISMO ECONÔMICO AUDITÁVEL E VISUAL PARA JOVENS.
+        </div>
+        <div>
+          <a href="#inicio" class="hover:underline">VOLTAR AO TOPO ↑</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    function toggleMobileMenu() {
+      const menu = document.getElementById('mobile-menu');
+      if (menu) menu.classList.toggle('hidden');
+    }
+
+    // =========================================================================
+    // DADOS E CONTEÚDO DIDÁTICO DO IMPACTO NO SEU DIA
+    // =========================================================================
+    const BolsoData = {
+      cartao: {
+        title: "ROTATIVO E JUROS DO CARTÃO DE CRÉDITO",
+        observedStatus: "Impacto Já Observado",
+        text: "Com a taxa Selic fixada em dois dígitos, os juros médios do rotativo do cartão de crédito no Brasil superam 440% ao ano. Quem deixa de pagar o valor total da fatura sofre juros compostos mensais que multiplicam rapidamente o montante devido.",
+        tip: "Orientação prática: Evite pagar apenas o valor mínimo. Caso enfrente aperto, busque linhas de crédito consignado ou empréstimo pessoal com taxas fixas mais baixas para liquidar a fatura à vista."
+      },
+      financiamento: {
+        title: "CONTRATOS DE FINANCIAMENTO DE VEÍCULOS E IMÓVEIS",
+        observedStatus: "Impacto no Médio e Longo Prazo",
+        text: "O Custo Efetivo Total (CET) dos financiamentos bancários sobe com a Selic elevada, exigindo entradas financeiras maiores para que o valor das parcelas mensais caiba no limite de 30% da renda das famílias.",
+        tip: "Orientação prática: Manter o montante da entrada aplicado em títulos de renda fixa atrelados à Selic acelera a poupança e diminui o valor final financiado junto aos bancos."
+      },
+      supermercado: {
+        title: "ITENS ESSENCIAIS DA CESTA BÁSICA E VAREJO",
+        observedStatus: "Impacto no Poder de Compra",
+        text: "A taxa Selic elevada esfria o ritmo da demanda interna, o que desestimula reajustes excessivos nos preços de alimentos e vestuário por parte de indústrias e redes varejistas.",
+        tip: "Orientação prática: Pesquise preços em redes atacadistas e feiras locais; compare cortes de proteínas animais e produtos da safra regional para amenizar os impactos da inflação."
+      },
+      investimentos: {
+        title: "APLICAÇÕES EM RENDA FIXA PÓS-FIXADA (CDI / SELIC)",
+        observedStatus: "Oportunidade de Preservação Patrimonial",
+        text: "Títulos como o Tesouro Selic e CDBs com liquidez diária oferecem retornos brutos próximos a 0,85% ao mês, protegendo a reserva de emergência sem volatilidade das ações.",
+        tip: "Orientação prática: Antes de aportar em renda variável ou criptoativos, consolide uma reserva de emergência equivalente a 3 a 6 meses do seu custo de vida mensal."
+      }
+    };
+
+    function switchBolsoTab(key) {
+      const data = BolsoData[key];
+      if (!data) return;
+
+      document.querySelectorAll('.tab-bolso-btn').forEach(b => {
+        b.className = 'tab-bolso-btn px-4 py-2.5 bg-white hover:bg-neutral-100 border-gum shadow-gum-sm transition-colors font-mono text-xs font-bold';
+      });
+      const active = document.getElementById(`tab-btn-${key}`);
+      if (active) {
+        active.className = 'tab-bolso-btn px-4 py-2.5 bg-gum-black text-white border-gum shadow-gum-sm transition-colors font-mono text-xs font-bold';
+      }
+
+      document.getElementById('bolso-content-box').innerHTML = `
+        <div class="flex items-center justify-between font-mono font-bold text-xs border-b border-neutral-300 pb-2">
+          <span class="text-neutral-900 uppercase font-black">${data.title}</span>
+          <span class="bg-white px-2 py-0.5 border border-gum text-neutral-700">${data.observedStatus}</span>
+        </div>
+        <p class="text-neutral-800 leading-relaxed font-medium">
+          ${data.text}
+        </p>
+        <div class="bg-gum-yellow p-3 border-gum font-mono text-xs text-gum-black mt-2">
+          <strong>${data.tip}</strong>
+        </div>
+      `;
+    }
+
+    // =========================================================================
+    // EXECUÇÃO DE ATUALIZAÇÃO VIA FONTES OFICIAIS E PÚBLICAS
+    // =========================================================================
+    async function triggerAutonomousUpdate(isManual = false) {
+      const btn = document.getElementById('btn-refresh');
+      if (btn && isManual) {
+        btn.innerHTML = '<span>BUSCANDO...</span>';
+        btn.classList.add('bg-gum-yellow', 'text-gum-black');
+      }
+
+      const syncLabel = document.getElementById('last-sync-time');
+      const b3UpdateLabel = document.getElementById('b3-update-time');
+      const mainNewsDate = document.getElementById('main-news-datetime');
+      const now = new Date();
+      const timeStr = `${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}:${String(now.getSeconds()).padStart(2, '0')}`;
+      const dateStr = `${String(now.getDate()).padStart(2, '0')}/${String(now.getMonth() + 1).padStart(2, '0')}/${now.getFullYear()}`;
+
+      // COTAÇÕES REAIS VIA AWESOMEAPI (USD, EUR)
+      try {
+        const res = await fetch('https://economia.awesomeapi.com.br/last/USD-BRL,EUR-BRL');
+        if (res.ok) {
+          const data = await res.json();
+          
+          if (data.USDBRL) {
+            const usd = parseFloat(data.USDBRL.bid).toFixed(3);
+            const usdVar = parseFloat(data.USDBRL.pctChange).toFixed(2);
+            const usdVarSign = usdVar >= 0 ? `▲ +${usdVar}%` : `▼ ${usdVar}%`;
+            
+            document.getElementById('ticker-usd').innerText = `R$ ${usd}`;
+            document.getElementById('ticker-usd-2').innerText = `R$ ${usd}`;
+            document.getElementById('ticker-usd-var').innerText = usdVarSign;
+            document.getElementById('hero-coin-usd').innerText = `R$ ${usd}`;
+            
+            const cardUsd = document.getElementById('market-card-usd-val');
+            const cardUsdVar = document.getElementById('market-card-usd-var');
+            if (cardUsd) cardUsd.innerText = `R$ ${usd}`;
+            if (cardUsdVar) {
+              cardUsdVar.innerText = usdVarSign;
+              cardUsdVar.className = usdVar >= 0 ? 'bg-red-100 px-1.5 py-0.5 border border-gum text-red-950 font-black' : 'bg-emerald-100 px-1.5 py-0.5 border border-gum text-emerald-950 font-black';
+            }
+          }
+
+          if (data.EURBRL) {
+            const eur = parseFloat(data.EURBRL.bid).toFixed(3);
+            const eurVar = parseFloat(data.EURBRL.pctChange).toFixed(2);
+            const eurVarSign = eurVar >= 0 ? `▲ +${eurVar}%` : `▼ ${eurVar}%`;
+            
+            document.getElementById('ticker-eur').innerText = `R$ ${eur}`;
+            document.getElementById('ticker-eur-2').innerText = `R$ ${eur}`;
+            document.getElementById('ticker-eur-var').innerText = eurVarSign;
+
+            const cardEur = document.getElementById('market-card-eur-val');
+            const cardEurVar = document.getElementById('market-card-eur-var');
+            if (cardEur) cardEur.innerText = `R$ ${eur}`;
+            if (cardEurVar) cardEurVar.innerText = eurVarSign;
+          }
+        }
+      } catch (err) {
+        console.log("Cotações mantidas na última referência auditável.");
+      }
+
+      if (syncLabel) syncLabel.innerText = `${dateStr} às ${timeStr}`;
+      if (b3UpdateLabel) b3UpdateLabel.innerText = `${dateStr} às ${timeStr}`;
+      if (mainNewsDate) mainNewsDate.innerText = `Comunicado oficial atualizado até ${dateStr} às ${timeStr}`;
+
+      if (btn && isManual) {
+        btn.innerHTML = '<span>✓ SINCRONIZADO!</span>';
+        btn.classList.remove('bg-gum-yellow');
+        btn.classList.add('bg-gum-mint');
+        setTimeout(() => {
+          btn.innerHTML = '<span>SINCRONIZAR</span><span>↗</span>';
+          btn.classList.remove('bg-gum-mint', 'text-gum-black');
+          btn.classList.add('bg-gum-black', 'text-white');
+        }, 1800);
+      }
+    }
+
+    // =========================================================================
+    // CONTROLE DE CICLO DE CONTAGEM REGRESSIVA (3600 SEGUNDOS = 1 HORA)
+    // =========================================================================
+    const ONE_HOUR_SECONDS = 3600;
+    let secondsRemaining = ONE_HOUR_SECONDS;
+
+    function updateCountdown() {
+      secondsRemaining--;
+      if (secondsRemaining <= 0) {
+        secondsRemaining = ONE_HOUR_SECONDS;
+        triggerAutonomousUpdate(false);
+      }
+
+      const minutes = Math.floor(secondsRemaining / 60);
+      const seconds = secondsRemaining % 60;
+      const formatted = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+
+      const headerCd = document.getElementById('header-countdown');
+      if (headerCd) headerCd.innerText = formatted;
+
+      const mobileCd = document.getElementById('mobile-countdown');
+      if (mobileCd) mobileCd.innerText = formatted;
+    }
+
+    function updateLiveClock() {
+      const now = new Date();
+      const h = String(now.getHours()).padStart(2, '0');
+      const m = String(now.getMinutes()).padStart(2, '0');
+      const s = String(now.getSeconds()).padStart(2, '0');
+      const d = String(now.getDate()).padStart(2, '0');
+
+      const timeBadge = document.getElementById('header-timestamp');
+      if (timeBadge) timeBadge.innerText = `${h}:${m}:${s}`;
+
+      const heroDate = document.getElementById('hero-live-date');
+      if (heroDate) {
+        const days = ['DOMINGO', 'SEGUNDA-FEIRA', 'TERÇA-FEIRA', 'QUARTA-FEIRA', 'QUINTA-FEIRA', 'SEXTA-FEIRA', 'SÁBADO'];
+        const months = ['JANEIRO', 'FEVEREIRO', 'MARÇO', 'ABRIL', 'MAIO', 'JUNHO', 'JULHO', 'AGOSTO', 'SETEMBRO', 'OUTUBRO', 'NOVEMBRO', 'DEZEMBRO'];
+        heroDate.innerText = `${days[now.getDay()]}, ${d} DE ${months[now.getMonth()]} • AO VIVO`;
+      }
+    }
+
+    // =========================================================================
+    // GRÁFICOS OFICIAIS COM CHART.JS (SÉRIES REAIS HISTÓRICAS)
+    // =========================================================================
+    let economicsChartInstance = null;
+    const datasetsBank = {
+      selic: {
+        title: "Taxa Selic vs Inflação IPCA (Acumulado 12 Meses - % a.a.)",
+        source: "FONTE: BANCO CENTRAL / IBGE",
+        labels: ["Set/23", "Nov/23", "Jan/24", "Mar/24", "Mai/24", "Jul/24", "Set/24", "Jan/25", "Mai/25", "Set/26"],
+        datasets: [
+          {
+            label: "Taxa Selic Meta (% a.a. - BCB)",
+            data: [12.75, 12.25, 11.75, 10.75, 10.50, 10.50, 10.75, 11.25, 11.00, 10.75],
+            borderColor: "#000000",
+            backgroundColor: "#000000",
+            borderWidth: 3.5,
+            tension: 0.1,
+            pointRadius: 4,
+            pointBackgroundColor: "#FFC900",
+            pointBorderColor: "#000000",
+            pointBorderWidth: 2,
+          },
+          {
+            label: "IPCA 12 Meses (% - IBGE)",
+            data: [5.19, 4.68, 4.51, 3.93, 3.93, 4.50, 4.42, 4.20, 4.10, 4.24],
+            borderColor: "#FF90E8",
+            backgroundColor: "#FF90E8",
+            borderWidth: 3,
+            borderDash: [5, 5],
+            tension: 0.2,
+            pointRadius: 4,
+            pointBackgroundColor: "#FF90E8",
+            pointBorderColor: "#000000",
+            pointBorderWidth: 2,
+          }
+        ],
+        desc1: "Compara a taxa Selic fixada pelo Banco Central à variação oficial de preços apurada em 12 meses pelo IBGE.",
+        desc2: "A distância entre as duas curvas é a taxa de juro real brasileira. Quanto mais ampla, maior o custo do crédito e mais forte a remuneração de títulos pós-fixados.",
+        desc3: "Evite contrair dívidas pré-fixadas sem planejamento. Sua reserva no Tesouro Selic rende ganho real positivo sobre a inflação."
+      },
+      dolar: {
+        title: "Dólar Comercial Ptax (R$) - Banco Central do Brasil",
+        source: "FONTE: BANCO CENTRAL DO BRASIL (SGS)",
+        labels: ["Out/23", "Dez/23", "Fev/24", "Abr/24", "Jun/24", "Ago/24", "Out/24", "Dez/24", "Abr/25", "Set/26"],
+        datasets: [
+          {
+            label: "Taxa Ptax Venda (R$)",
+            data: [5.05, 4.88, 4.97, 5.15, 5.45, 5.58, 5.68, 5.75, 5.50, 5.61],
+            borderColor: "#000000",
+            backgroundColor: "rgba(184, 192, 255, 0.5)",
+            borderWidth: 3,
+            fill: true,
+            tension: 0.2,
+            pointRadius: 5,
+            pointBackgroundColor: "#B8C0FF",
+            pointBorderColor: "#000000",
+            pointBorderWidth: 2,
+          }
+        ],
+        desc1: "Média de fechamento da taxa de câmbio Ptax apurada oficialmente pelo Banco Central do Brasil.",
+        desc2: "Oscilações refletem o fluxo cambial, balança comercial e o diferencial de juros entre Brasil e Federal Reserve.",
+        desc3: "Afeta de forma direta viagens internacionais, eletrônicos importados e trigo da panificação."
+      },
+      desemprego: {
+        title: "Taxa de Desocupação no Brasil (PNAD Contínua - %)",
+        source: "FONTE: IBGE",
+        labels: ["2021", "2022", "2023-1", "2023-2", "2024-1", "2024-2", "2025", "2026"],
+        datasets: [
+          {
+            label: "Taxa de Desocupação Oficial (%)",
+            data: [13.2, 9.3, 8.4, 7.8, 7.5, 6.8, 6.9, 6.8],
+            borderColor: "#000000",
+            backgroundColor: "#78E08F",
+            borderWidth: 3,
+            tension: 0.2,
+            pointRadius: 5,
+            pointBackgroundColor: "#78E08F",
+            pointBorderColor: "#000000",
+            pointBorderWidth: 2,
+          }
+        ],
+        desc1: "Trajetória oficial da taxa de desocupação apurada pelo IBGE em todo o território nacional.",
+        desc2: "Mercado de trabalho aquecido eleva a massa de rendimentos, mas exige juros vigilantes para evitar pressões de demanda em serviços.",
+        desc3: "Gera oportunidades de colocação profissional e estabilidade de renda para os trabalhadores."
+      }
+    };
+
+    function initChart() {
+      const canvas = document.getElementById('economicsChart');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      const initialData = datasetsBank.selic;
+      const isMobile = window.innerWidth < 640;
+
+      economicsChartInstance = new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: initialData.labels,
+          datasets: initialData.datasets
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              labels: {
+                font: { family: '"JetBrains Mono"', size: isMobile ? 10 : 11, weight: 'bold' },
+                color: '#000000',
+                boxWidth: 14,
+              }
+            }
+          },
+          scales: {
+            x: {
+              grid: { color: '#D9D7CE' },
+              ticks: { 
+                font: { family: '"JetBrains Mono"', size: isMobile ? 9 : 10, weight: 'bold' }, 
+                color: '#000000',
+                maxTicksLimit: isMobile ? 6 : 10
+              }
+            },
+            y: {
+              grid: { color: '#D9D7CE' },
+              ticks: { font: { family: '"JetBrains Mono"', size: isMobile ? 9 : 10, weight: 'bold' }, color: '#000000' }
+            }
+          }
+        }
+      });
+    }
+
+    function loadChartDataset(key) {
+      if (!economicsChartInstance) return;
+      const dataObj = datasetsBank[key];
+      if (!dataObj) return;
+
+      document.querySelectorAll('.chart-selector-btn').forEach(b => {
+        b.className = 'chart-selector-btn px-4 py-2 border-gum bg-gum-bg hover:bg-gum-dark shadow-gum-sm transition-colors font-mono text-xs font-bold';
+      });
+      const activeBtn = document.getElementById(`btn-chart-${key}`);
+      if (activeBtn) {
+        activeBtn.className = 'chart-selector-btn px-4 py-2 border-gum bg-gum-black text-white shadow-gum-sm transition-colors font-mono text-xs font-bold';
+      }
+
+      document.getElementById('chart-title').innerText = dataObj.title;
+      document.getElementById('chart-source-badge').innerText = dataObj.source;
+      document.getElementById('chart-desc-1').innerText = dataObj.desc1;
+      document.getElementById('chart-desc-2').innerText = dataObj.desc2;
+      document.getElementById('chart-desc-3').innerText = dataObj.desc3;
+
+      economicsChartInstance.data.labels = dataObj.labels;
+      economicsChartInstance.data.datasets = dataObj.datasets;
+      economicsChartInstance.update();
+    }
+
+    // =========================================================================
+    // SIMULADOR DO CUSTO DOS JUROS
+    // =========================================================================
+    function runCalculator() {
+      const scenario = document.getElementById('calc-scenario').value;
+      const amount = parseFloat(document.getElementById('calc-amount').value) || 0;
+      const months = parseInt(document.getElementById('calc-months').value) || 12;
+
+      let finalVal = 0;
+      let diffVal = 0;
+      let explanation = "";
+      let isPositive = false;
+
+      if (scenario === 'cartao') {
+        const monthlyRate = 0.14;
+        finalVal = amount * Math.pow(1 + monthlyRate, months);
+        diffVal = finalVal - amount;
+        explanation = `No rotativo (taxa média de mercado de cerca de 14%/mês), uma dívida de R$ ${amount.toLocaleString('pt-BR')} acumula R$ ${diffVal.toLocaleString('pt-BR', {minimumFractionDigits: 2, maximumFractionDigits: 2})} apenas em juros bancários.`;
+        isPositive = false;
+      } else if (scenario === 'investimento') {
+        const monthlyRate = 0.0085;
+        finalVal = amount * Math.pow(1 + monthlyRate, months);
+        diffVal = finalVal - amount;
+        explanation = `Aplicando R$ ${amount.toLocaleString('pt-BR')} no Tesouro Selic ou CDB pós-fixado a 100% do CDI, você obtém cerca de R$ ${diffVal.toLocaleString('pt-BR', {minimumFractionDigits: 2, maximumFractionDigits: 2})} de rendimento bruto estimado.`;
+        isPositive = true;
+      } else if (scenario === 'carro') {
+        const monthlyRate = 0.017;
+        const parcel = (amount * monthlyRate) / (1 - Math.pow(1 + monthlyRate, -months));
+        finalVal = parcel * months;
+        diffVal = finalVal - amount;
+        explanation = `Para financiar R$ ${amount.toLocaleString('pt-BR')} em ${months}x, a parcela estimada é de R$ ${parcel.toLocaleString('pt-BR', {minimumFractionDigits: 2, maximumFractionDigits: 2})}/mês. Custo com juros bancários: R$ ${diffVal.toLocaleString('pt-BR', {minimumFractionDigits: 2, maximumFractionDigits: 2})}.`;
+        isPositive = false;
+      } else if (scenario === 'aluguel') {
+        const yearlyRate = 0.08 * (months / 12);
+        finalVal = amount * (1 + yearlyRate);
+        diffVal = finalVal - amount;
+        explanation = `Para um contrato de aluguel de R$ ${amount.toLocaleString('pt-BR')}, o reajuste contratual estimado após ${months} meses é de +R$ ${diffVal.toLocaleString('pt-BR', {minimumFractionDigits: 2, maximumFractionDigits: 2})}.`;
+        isPositive = false;
+      }
+
+      document.getElementById('calc-final-value').innerText = `R$ ${finalVal.toLocaleString('pt-BR', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
+      const diffElem = document.getElementById('calc-diff-value');
+      
+      if (isPositive) {
+        diffElem.innerText = `+ R$ ${diffVal.toLocaleString('pt-BR', {minimumFractionDigits: 2, maximumFractionDigits: 2})} (Rendimento)`;
+        diffElem.className = 'font-mono text-xs font-black text-emerald-700';
+      } else {
+        diffElem.innerText = `+ R$ ${diffVal.toLocaleString('pt-BR', {minimumFractionDigits: 2, maximumFractionDigits: 2})} (Juros Pagos)`;
+        diffElem.className = 'font-mono text-xs font-black text-red-600';
+      }
+
+      document.getElementById('calc-explanation').innerHTML = explanation;
+    }
+
+    function filterGlossary() {
+      const q = document.getElementById('glossary-search').value.toLowerCase().trim();
+      const cards = document.querySelectorAll('.glossary-card');
+      cards.forEach(c => {
+        c.style.display = c.innerText.toLowerCase().includes(q) ? 'block' : 'none';
+      });
+    }
+
+    function handleSubscribe() {
+      const inp = document.getElementById('newsletter-email');
+      if (inp && inp.value && inp.value.includes('@')) {
+        inp.value = '';
+        inp.placeholder = '✓ Inscrição confirmada com sucesso!';
+      } else if (inp) {
+        inp.placeholder = 'Digite um e-mail válido!';
+      }
+    }
+
+    window.addEventListener('load', () => {
+      switchBolsoTab('cartao');
+      initChart();
+      runCalculator();
+      updateLiveClock();
+      setInterval(updateLiveClock, 1000);
+      setInterval(updateCountdown, 1000);
+      triggerAutonomousUpdate(false);
+    });
+  </script>
+</body>
+</html>

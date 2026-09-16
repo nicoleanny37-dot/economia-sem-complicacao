@@ -37,7 +37,6 @@ boxShadow: {
 'gum-sm': '2px 2px 0px #000000',
 'gum': '4px 4px 0px #000000',
 'gum-lg': '6px 6px 0px #000000',
-'gum-coin': '8px 8px 0px rgba(0,0,0,1)',
 }
 }
 }
@@ -86,13 +85,13 @@ animation: ticker-anim 48s linear infinite;
 <span class="font-headline text-base sm:text-xl tracking-tight uppercase">ECONOMIA SEM COMPLICAÇÃO</span>
 </a>
 </div>
-​<!-- Menu Principal Desktop com Cores Únicas por Botão -->
+​<!-- Menu Principal Desktop com Cores Únicas por Botão (Sem Repetir Cores) -->
 <nav class="hidden xl:flex items-stretch flex-1 justify-center" aria-label="Navegação Principal">
 <a href="#inicio" class="flex items-center px-3 py-3 border-gum-r bg-white hover:bg-gum-yellow transition-colors">INÍCIO</a>
 <a href="#movimento" class="flex items-center px-3 py-3 border-gum-r bg-gum-yellow hover:bg-white transition-colors">O QUE MOVE</a>
 <a href="#brasil" class="flex items-center px-3 py-3 border-gum-r bg-gum-mint hover:bg-white transition-colors">BRASIL</a>
-<a href="#politica" class="flex items-center px-3 py-3 border-gum-r bg-gum-cyan hover:bg-white transition-colors">POLÍTICA & ECONOMIA</a>
-<a href="#bolsa" class="flex items-center px-3 py-3 border-gum-r bg-gum-periwinkle hover:bg-white transition-colors">BOLSA DE VALORES</a>
+<a href="#politica" class="flex items-center px-3 py-3 border-gum-r bg-gum-cyan hover:bg-white transition-colors">POLÍTICA</a>
+<a href="#bolsa" class="flex items-center px-3 py-3 border-gum-r bg-gum-periwinkle hover:bg-white transition-colors">BOLSA</a>
 <a href="#acoes" class="flex items-center px-3 py-3 border-gum-r bg-gum-pink hover:bg-white transition-colors">AÇÕES</a>
 <a href="#global" class="flex items-center px-3 py-3 border-gum-r bg-amber-200 hover:bg-white transition-colors">GEOPOLÍTICA</a>
 <a href="#impacto-dia" class="flex items-center px-3 py-3 border-gum-r bg-emerald-200 hover:bg-white transition-colors">SEU DIA</a>
@@ -125,7 +124,7 @@ animation: ticker-anim 48s linear infinite;
 </div>
 </header>
 ​<!-- ========================================================================= -->
-<!-- 2. TICKER DE INDICADORES (CONECTADO COM AWESOMEAPI / DADOS REAIS) -->
+<!-- 2. TICKER DE INDICADORES (CONECTADO COM API PÚBLICA) -->
 <!-- ========================================================================= -->
 <div class="bg-gum-yellow border-gum-b overflow-hidden select-none py-2 text-xs font-mono font-bold">
 <div class="ticker-scroll flex items-center gap-8 px-4">
@@ -162,7 +161,7 @@ animation: ticker-anim 48s linear infinite;
 ​<div class="inline-flex items-center gap-2 flex-wrap">
 <span class="bg-gum-black text-white font-mono font-bold text-xs px-2.5 py-1">DESTAQUE DO MOMENTO</span>
 <span id="hero-live-date" class="text-xs font-mono text-neutral-700 font-bold">
-ATUALIZADO ÀS 17:00 • BRASÍLIA
+ATUALIZADO • BRASÍLIA
 </span>
 </div>
 ​<h1 class="font-headline text-3xl sm:text-5xl lg:text-6xl tracking-tighter uppercase text-gum-black leading-[1.02]">
@@ -182,7 +181,7 @@ Economia explicada de forma simples, visual e baseada em informações verificá
 </a>
 </div>
 ​<div class="pt-2 text-xs font-mono text-neutral-600 flex items-center gap-2">
-<span>Última checagem automática:</span>
+<span>Última checagem:</span>
 <span id="last-sync-time" class="font-bold text-gum-black bg-gum-yellow px-1.5 py-0.5 border border-gum">Atualizado</span>
 </div>
 ​</div>
@@ -223,7 +222,7 @@ DADOS AUDITADOS • BANCO CENTRAL DO BRASIL E IBGE
 ​<article class="bg-gum-bg border-gum p-6 sm:p-10 shadow-gum space-y-6">
 ​<div class="flex flex-wrap items-center justify-between gap-3 text-xs font-mono font-bold text-neutral-600 border-b border-neutral-300 pb-3">
 <span class="bg-gum-black text-white px-2.5 py-1">COMUNICADO OFICIAL DO COPOM</span>
-<span>Atualizado hoje às 17:00 • Fonte: Banco Central do Brasil</span>
+<span>Fonte: Banco Central do Brasil</span>
 </div>
 ​<div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
 ​<div class="lg:col-span-7 space-y-5">
@@ -253,7 +252,7 @@ O Comitê de Política Monetária avaliou que a resiliência no mercado de traba
 </div>
 ​<div class="pt-2 flex justify-between items-center text-xs font-mono">
 <span class="text-neutral-600 font-bold">Fonte: Banco Central do Brasil</span>
-<a href="https://www.bcb.gov.br" target="_blank" rel="noopener noreferrer" class="px-4 py-2 bg-gum-black text-white hover:bg-gum-pink hover:text-gum-black transition-colors font-black border-gum shadow-gum-sm">
+<a href="https://www.bcb.gov.br" target="_blank" rel="noopener noreferrer" class="px-4 py-2 bg-gum-black text-white hover:bg-gum-pink hover:text-gum-black transition-colors font-black border-gum shadow-sm">
 LER MATÉRIA OFICIAL ↗
 </a>
 </div>
@@ -449,7 +448,7 @@ Cotações unitárias oficiais • B3 (Mercado Fracionário)
 ​</div>
 </section>
 ​<!-- ========================================================================= -->
-<!-- 10. POR QUE A BOLSA ESTÁ SUBINDO OU CAINDO? -->
+<!-- 10. POR QUE A BOLSA ESTÁ OSCILANDO? -->
 <!-- ========================================================================= -->
 <section class="w-full bg-gum-bg border-gum-b p-6 sm:p-10">
 <div class="max-w-[1440px] mx-auto space-y-6">
@@ -848,7 +847,7 @@ ECONOMIA SEM COMPLICAÇÃO © 2026 — JORNALISMO ECONÔMICO AUDITÁVEL E VISUAL
 </div>
 </footer>
 ​<!-- ========================================================================= -->
-<!-- SCRIPTS DE ATUALIZAÇÃO AUTOMÁTICA E FUNCIONALIDADES -->
+<!-- SCRIPTS DE ATUALIZAÇÃO E FUNCIONALIDADES -->
 <!-- ========================================================================= -->
 <script>
 function toggleMobileMenu() {
@@ -937,7 +936,7 @@ cards.forEach(c => {
 c.style.display = c.innerText.toLowerCase().includes(q) ? 'block' : 'none';
 });
 }
-​// Atualização em Tempo Real de Relógio e Cotações
+​// Atualização de Relógio e Cotações
 async function updateRealtimeData() {
 const now = new Date();
 const h = String(now.getHours()).padStart(2, '0');
@@ -975,7 +974,7 @@ console.log("Cotações mantidas na última referência auditável.");
 const inp = document.getElementById('newsletter-email');
 if (inp && inp.value && inp.value.includes('@')) {
 inp.value = '';
-inp.placeholder = 'Inscrição recebida com sucesso!';
+inp.placeholder = 'Inscrição enviada com sucesso! Verifique seu e-mail.';
 } else if (inp) {
 inp.placeholder = 'Digite um e-mail válido!';
 }

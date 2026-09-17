@@ -1,0 +1,1785 @@
+/* =========================================================
+   ECONOMIA SEM COMPLICAÇÃO
+   STYLE.CSS
+   Visual editorial + responsivo
+   ========================================================= */
+
+/* =========================================================
+   1. VARIÁVEIS
+   ========================================================= */
+
+:root {
+    --bg: #f4f4f0;
+    --bg-dark: #ebeae5;
+    --black: #000000;
+    --white: #ffffff;
+
+    --pink: #ff90e8;
+    --yellow: #ffc900;
+    --periwinkle: #b8c0ff;
+    --mint: #78e08f;
+    --cyan: #70e2ff;
+    --orange: #ff8a3d;
+    --lavender: #d8b4fe;
+
+    --border: 3px solid var(--black);
+    --shadow: 6px 6px 0 var(--black);
+
+    --radius: 0;
+
+    --font-display: "Archivo Black", Arial, sans-serif;
+    --font-body: "Plus Jakarta Sans", Arial, sans-serif;
+    --font-mono: "JetBrains Mono", monospace;
+
+    --container: 1440px;
+
+    --transition: 180ms ease;
+}
+
+
+/* =========================================================
+   2. RESET
+   ========================================================= */
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 90px;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+
+    background: var(--bg);
+    color: var(--black);
+
+    font-family: var(--font-body);
+    font-size: 16px;
+    line-height: 1.55;
+
+    overflow-x: hidden;
+}
+
+img {
+    display: block;
+    max-width: 100%;
+}
+
+button,
+input,
+select,
+textarea {
+    font: inherit;
+}
+
+button {
+    cursor: pointer;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+ul,
+ol {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+
+/* =========================================================
+   3. SELEÇÃO
+   ========================================================= */
+
+::selection {
+    background: var(--black);
+    color: var(--yellow);
+}
+
+
+/* =========================================================
+   4. TIPOGRAFIA
+   ========================================================= */
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    margin: 0;
+    font-family: var(--font-display);
+    font-weight: 900;
+    line-height: 0.98;
+    letter-spacing: -0.035em;
+}
+
+p {
+    margin: 0;
+}
+
+.mono,
+.timestamp,
+.source,
+.market-value,
+.market-change,
+.ticker-value {
+    font-family: var(--font-mono);
+}
+
+
+/* =========================================================
+   5. CONTAINER
+   ========================================================= */
+
+.container {
+    width: min(calc(100% - 40px), var(--container));
+    margin-inline: auto;
+}
+
+
+/* =========================================================
+   6. HEADER
+   ========================================================= */
+
+.site-header {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+
+    background: var(--bg);
+
+    border-bottom: var(--border);
+}
+
+.header-top {
+    min-height: 96px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+
+    padding: 18px 0;
+}
+
+.logo {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.logo-mark {
+    width: 48px;
+    height: 48px;
+
+    display: grid;
+    place-items: center;
+
+    background: var(--yellow);
+    border: var(--border);
+
+    font-family: var(--font-display);
+    font-size: 20px;
+
+    box-shadow: 4px 4px 0 var(--black);
+}
+
+.logo-text {
+    font-family: var(--font-display);
+    font-size: clamp(20px, 3vw, 34px);
+    line-height: 0.9;
+    text-transform: uppercase;
+}
+
+.header-info {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+
+    font-size: 12px;
+    font-weight: 800;
+    text-transform: uppercase;
+}
+
+.header-date {
+    padding: 8px 12px;
+
+    border: 2px solid var(--black);
+    background: var(--white);
+
+    font-family: var(--font-mono);
+}
+
+
+/* =========================================================
+   7. NAVEGAÇÃO
+   ========================================================= */
+
+.main-nav {
+    border-top: 2px solid var(--black);
+}
+
+.nav-list {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.nav-link {
+    min-height: 48px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 10px 15px;
+
+    border-right: 2px solid var(--black);
+
+    font-size: 12px;
+    font-weight: 900;
+    text-transform: uppercase;
+
+    transition:
+        transform var(--transition),
+        filter var(--transition);
+}
+
+.nav-link:hover {
+    transform: translateY(-2px);
+    filter: brightness(0.96);
+}
+
+.nav-link:nth-child(1) {
+    background: var(--pink);
+}
+
+.nav-link:nth-child(2) {
+    background: var(--yellow);
+}
+
+.nav-link:nth-child(3) {
+    background: var(--periwinkle);
+}
+
+.nav-link:nth-child(4) {
+    background: var(--mint);
+}
+
+.nav-link:nth-child(5) {
+    background: var(--cyan);
+}
+
+.nav-link:nth-child(6) {
+    background: var(--orange);
+}
+
+.nav-link:nth-child(7) {
+    background: var(--lavender);
+}
+
+.mobile-menu-button {
+    display: none;
+
+    padding: 10px 14px;
+
+    background: var(--yellow);
+    border: var(--border);
+
+    font-family: var(--font-display);
+    font-size: 13px;
+}
+
+
+/* =========================================================
+   8. TICKER / INDICADORES
+   ========================================================= */
+
+.market-ticker {
+    width: 100%;
+
+    border-bottom: var(--border);
+
+    background: var(--black);
+    color: var(--white);
+
+    overflow: hidden;
+}
+
+.ticker-track {
+    min-height: 48px;
+
+    display: flex;
+    align-items: stretch;
+
+    overflow-x: auto;
+    scrollbar-width: none;
+}
+
+.ticker-track::-webkit-scrollbar {
+    display: none;
+}
+
+.ticker-item {
+    min-width: max-content;
+
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    padding: 8px 18px;
+
+    border-right: 1px solid #444;
+
+    font-size: 12px;
+}
+
+.ticker-label {
+    font-weight: 800;
+}
+
+.ticker-value {
+    font-weight: 700;
+}
+
+.ticker-positive {
+    color: var(--mint);
+}
+
+.ticker-negative {
+    color: var(--pink);
+}
+
+
+/* =========================================================
+   9. SEÇÕES
+   ========================================================= */
+
+section {
+    position: relative;
+    padding: 80px 0;
+}
+
+.section-header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 24px;
+
+    margin-bottom: 32px;
+}
+
+.section-title {
+    max-width: 850px;
+
+    font-size: clamp(34px, 5vw, 68px);
+    text-transform: uppercase;
+}
+
+.section-subtitle {
+    max-width: 600px;
+
+    font-size: 15px;
+    font-weight: 600;
+}
+
+.section-label {
+    display: inline-block;
+
+    margin-bottom: 12px;
+    padding: 6px 10px;
+
+    border: 2px solid var(--black);
+
+    background: var(--yellow);
+
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 800;
+    text-transform: uppercase;
+}
+
+
+/* =========================================================
+   10. HERO
+   ========================================================= */
+
+.hero {
+    padding: 70px 0 90px;
+
+    border-bottom: var(--border);
+
+    background: var(--yellow);
+}
+
+.hero-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.45fr) minmax(300px, 0.55fr);
+    gap: 32px;
+}
+
+.hero-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.hero-title {
+    max-width: 1050px;
+
+    font-size: clamp(52px, 8vw, 118px);
+    text-transform: uppercase;
+}
+
+.hero-description {
+    max-width: 700px;
+
+    margin-top: 28px;
+
+    font-size: clamp(17px, 2vw, 22px);
+    font-weight: 700;
+}
+
+.hero-aside {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.hero-card {
+    padding: 24px;
+
+    background: var(--white);
+    border: var(--border);
+    box-shadow: var(--shadow);
+}
+
+.hero-card-title {
+    margin-bottom: 12px;
+
+    font-size: 24px;
+}
+
+.hero-card-text {
+    font-size: 14px;
+    font-weight: 600;
+}
+
+
+/* =========================================================
+   11. CARDS DE NOTÍCIA
+   ========================================================= */
+
+.news-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 24px;
+}
+
+.news-card {
+    display: flex;
+    flex-direction: column;
+
+    min-width: 0;
+
+    background: var(--white);
+    border: var(--border);
+
+    box-shadow: var(--shadow);
+
+    transition:
+        transform var(--transition),
+        box-shadow var(--transition);
+}
+
+.news-card:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 8px 8px 0 var(--black);
+}
+
+.news-image {
+    aspect-ratio: 16 / 9;
+
+    display: grid;
+    place-items: center;
+
+    background: var(--bg-dark);
+
+    border-bottom: var(--border);
+
+    overflow: hidden;
+}
+
+.news-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.news-image-placeholder {
+    padding: 20px;
+
+    font-family: var(--font-mono);
+    font-size: 12px;
+    text-align: center;
+}
+
+.news-body {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+
+    padding: 22px;
+}
+
+.news-category {
+    align-self: flex-start;
+
+    margin-bottom: 14px;
+    padding: 5px 8px;
+
+    border: 2px solid var(--black);
+
+    background: var(--pink);
+
+    font-family: var(--font-mono);
+    font-size: 10px;
+    font-weight: 900;
+    text-transform: uppercase;
+}
+
+.news-title {
+    margin-bottom: 14px;
+
+    font-size: clamp(22px, 2.5vw, 32px);
+}
+
+.news-summary {
+    margin-bottom: 18px;
+
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.news-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+
+    margin-top: auto;
+    padding-top: 16px;
+
+    border-top: 2px solid var(--black);
+
+    font-size: 10px;
+    font-weight: 800;
+    text-transform: uppercase;
+}
+
+.news-link {
+    display: inline-flex;
+    align-items: center;
+
+    margin-top: 16px;
+    padding: 12px 14px;
+
+    background: var(--black);
+    color: var(--white);
+
+    border: 2px solid var(--black);
+
+    font-size: 12px;
+    font-weight: 900;
+    text-transform: uppercase;
+
+    transition:
+        background var(--transition),
+        color var(--transition);
+}
+
+.news-link:hover {
+    background: var(--white);
+    color: var(--black);
+}
+
+
+/* =========================================================
+   12. IMPACTO PF / EMPRESAS
+   ========================================================= */
+
+.impact-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 24px;
+}
+
+.impact-card {
+    padding: 32px;
+
+    border: var(--border);
+
+    box-shadow: var(--shadow);
+}
+
+.impact-card.pessoa-fisica {
+    background: var(--pink);
+}
+
+.impact-card.empresas {
+    background: var(--cyan);
+}
+
+.impact-card h3 {
+    margin-bottom: 20px;
+
+    font-size: 36px;
+    text-transform: uppercase;
+}
+
+.impact-list {
+    display: grid;
+    gap: 14px;
+}
+
+.impact-item {
+    padding: 16px;
+
+    background: var(--white);
+    border: 2px solid var(--black);
+
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.impact-item strong {
+    display: block;
+
+    margin-bottom: 4px;
+
+    font-family: var(--font-display);
+    font-size: 16px;
+}
+
+
+/* =========================================================
+   13. BOLSA
+   ========================================================= */
+
+.market-section {
+    background: var(--black);
+    color: var(--white);
+}
+
+.market-section .section-label {
+    color: var(--black);
+}
+
+.market-grid {
+    display: grid;
+    grid-template-columns: 1.15fr 0.85fr;
+    gap: 24px;
+}
+
+.market-panel {
+    background: var(--white);
+    color: var(--black);
+
+    border: var(--border);
+    box-shadow: var(--shadow);
+}
+
+.market-panel-header {
+    padding: 18px 20px;
+
+    border-bottom: var(--border);
+
+    background: var(--yellow);
+}
+
+.market-panel-title {
+    font-size: 28px;
+}
+
+.market-list {
+    display: grid;
+}
+
+.market-row {
+    display: grid;
+    grid-template-columns: minmax(100px, 1fr) auto auto;
+
+    align-items: center;
+    gap: 16px;
+
+    padding: 16px 20px;
+
+    border-bottom: 2px solid var(--black);
+}
+
+.market-row:last-child {
+    border-bottom: 0;
+}
+
+.market-name {
+    font-weight: 900;
+}
+
+.market-price {
+    font-family: var(--font-mono);
+    font-size: 14px;
+    font-weight: 800;
+}
+
+.market-change {
+    font-size: 13px;
+    font-weight: 900;
+}
+
+.change-up {
+    color: #168a35;
+}
+
+.change-down {
+    color: #c40062;
+}
+
+.change-neutral {
+    color: #555;
+}
+
+
+/* =========================================================
+   14. AÇÕES EM ALTA / BAIXA
+   ========================================================= */
+
+.stocks-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 24px;
+}
+
+.stock-panel {
+    background: var(--white);
+
+    border: var(--border);
+    box-shadow: var(--shadow);
+}
+
+.stock-panel.up {
+    background: var(--mint);
+}
+
+.stock-panel.down {
+    background: var(--pink);
+}
+
+.stock-panel-header {
+    padding: 22px;
+
+    border-bottom: var(--border);
+}
+
+.stock-panel-header h3 {
+    font-size: 32px;
+    text-transform: uppercase;
+}
+
+.stock-card {
+    padding: 20px;
+
+    background: var(--white);
+
+    border-bottom: 2px solid var(--black);
+}
+
+.stock-card:last-child {
+    border-bottom: 0;
+}
+
+.stock-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+}
+
+.stock-ticker {
+    font-family: var(--font-display);
+    font-size: 24px;
+}
+
+.stock-variation {
+    font-family: var(--font-mono);
+    font-size: 14px;
+    font-weight: 900;
+}
+
+.stock-reason {
+    margin-top: 12px;
+
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.stock-source {
+    margin-top: 10px;
+
+    font-family: var(--font-mono);
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+
+/* =========================================================
+   15. DADOS / INDICADORES
+   ========================================================= */
+
+.indicators-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 18px;
+}
+
+.indicator-card {
+    padding: 24px;
+
+    background: var(--white);
+    border: var(--border);
+    box-shadow: 4px 4px 0 var(--black);
+}
+
+.indicator-label {
+    margin-bottom: 12px;
+
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 800;
+    text-transform: uppercase;
+}
+
+.indicator-value {
+    font-family: var(--font-display);
+    font-size: clamp(28px, 4vw, 46px);
+}
+
+.indicator-detail {
+    margin-top: 10px;
+
+    font-size: 12px;
+    font-weight: 600;
+}
+
+
+/* =========================================================
+   16. GRÁFICOS
+   ========================================================= */
+
+.chart-container {
+    position: relative;
+
+    min-height: 320px;
+
+    padding: 24px;
+
+    background: var(--white);
+    border: var(--border);
+    box-shadow: var(--shadow);
+}
+
+.chart-wrapper {
+    position: relative;
+
+    width: 100%;
+    height: 300px;
+}
+
+
+/* =========================================================
+   17. ECONOMÊS
+   ========================================================= */
+
+.economes-section {
+    background: var(--lavender);
+}
+
+.economes-search {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 12px;
+
+    max-width: 1000px;
+
+    margin-bottom: 32px;
+}
+
+.economes-input {
+    width: 100%;
+
+    min-height: 64px;
+
+    padding: 14px 18px;
+
+    background: var(--white);
+
+    border: var(--border);
+
+    outline: none;
+
+    font-size: 18px;
+    font-weight: 700;
+
+    box-shadow: 4px 4px 0 var(--black);
+}
+
+.economes-input:focus {
+    box-shadow: 7px 7px 0 var(--black);
+}
+
+.economes-button {
+    min-height: 64px;
+
+    padding: 14px 24px;
+
+    background: var(--yellow);
+
+    border: var(--border);
+    box-shadow: 4px 4px 0 var(--black);
+
+    font-family: var(--font-display);
+    font-size: 14px;
+    text-transform: uppercase;
+
+    transition:
+        transform var(--transition),
+        box-shadow var(--transition);
+}
+
+.economes-button:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 6px 6px 0 var(--black);
+}
+
+.economes-result {
+    display: none;
+
+    max-width: 1000px;
+
+    padding: 30px;
+
+    background: var(--white);
+
+    border: var(--border);
+    box-shadow: var(--shadow);
+}
+
+.economes-result.is-visible {
+    display: block;
+}
+
+.economes-result h3 {
+    margin-bottom: 16px;
+
+    font-size: 38px;
+    text-transform: uppercase;
+}
+
+.economes-definition {
+    margin-bottom: 24px;
+
+    font-size: 17px;
+    font-weight: 600;
+}
+
+.economes-example,
+.economes-impact {
+    padding: 18px;
+
+    margin-top: 14px;
+
+    border: 2px solid var(--black);
+}
+
+.economes-example {
+    background: var(--yellow);
+}
+
+.economes-impact {
+    background: var(--mint);
+}
+
+.economes-result-label {
+    display: block;
+
+    margin-bottom: 6px;
+
+    font-family: var(--font-mono);
+    font-size: 10px;
+    font-weight: 900;
+    text-transform: uppercase;
+}
+
+
+/* =========================================================
+   18. SIMULADOR
+   ========================================================= */
+
+.simulator-section {
+    background: var(--cyan);
+}
+
+.simulator-layout {
+    display: grid;
+    grid-template-columns: 0.85fr 1.15fr;
+    gap: 24px;
+}
+
+.simulator-form,
+.simulator-result {
+    padding: 30px;
+
+    background: var(--white);
+
+    border: var(--border);
+    box-shadow: var(--shadow);
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.form-group.full {
+    grid-column: 1 / -1;
+}
+
+.form-label {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 900;
+    text-transform: uppercase;
+}
+
+.form-input,
+.form-select {
+    width: 100%;
+
+    min-height: 50px;
+
+    padding: 10px 12px;
+
+    background: var(--white);
+
+    border: 2px solid var(--black);
+
+    outline: none;
+
+    font-weight: 700;
+}
+
+.form-input:focus,
+.form-select:focus {
+    box-shadow: 4px 4px 0 var(--black);
+}
+
+.simulator-button {
+    width: 100%;
+
+    min-height: 56px;
+
+    margin-top: 20px;
+
+    background: var(--black);
+    color: var(--white);
+
+    border: 2px solid var(--black);
+
+    font-family: var(--font-display);
+    font-size: 14px;
+    text-transform: uppercase;
+}
+
+.simulator-button:hover {
+    background: var(--yellow);
+    color: var(--black);
+}
+
+.simulator-result h3 {
+    margin-bottom: 24px;
+
+    font-size: 34px;
+    text-transform: uppercase;
+}
+
+.result-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+}
+
+.result-card {
+    padding: 18px;
+
+    background: var(--bg);
+
+    border: 2px solid var(--black);
+}
+
+.result-card.highlight {
+    background: var(--yellow);
+}
+
+.result-label {
+    display: block;
+
+    margin-bottom: 6px;
+
+    font-family: var(--font-mono);
+    font-size: 10px;
+    font-weight: 900;
+    text-transform: uppercase;
+}
+
+.result-value {
+    font-family: var(--font-display);
+    font-size: clamp(24px, 3vw, 38px);
+}
+
+
+/* =========================================================
+   19. EXPLICAÇÃO DO SIMULADOR
+   ========================================================= */
+
+.simulator-note {
+    margin-top: 20px;
+    padding: 16px;
+
+    background: var(--bg-dark);
+
+    border: 2px solid var(--black);
+
+    font-size: 12px;
+    font-weight: 600;
+}
+
+
+/* =========================================================
+   20. GEOPOLÍTICA / COMÉRCIO / CÂMBIO
+   ========================================================= */
+
+.geopolitics-section {
+    background: var(--orange);
+}
+
+.geopolitics-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 24px;
+}
+
+.geopolitics-card {
+    padding: 28px;
+
+    background: var(--white);
+
+    border: var(--border);
+    box-shadow: var(--shadow);
+}
+
+.geopolitics-card h3 {
+    margin-bottom: 16px;
+
+    font-size: 30px;
+}
+
+.geopolitics-card p {
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.trade-flow {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+
+    margin-top: 24px;
+}
+
+.trade-step {
+    padding: 18px;
+
+    border: 2px solid var(--black);
+    border-right: 0;
+
+    background: var(--yellow);
+
+    font-size: 12px;
+    font-weight: 800;
+}
+
+.trade-step:last-child {
+    border-right: 2px solid var(--black);
+}
+
+
+/* =========================================================
+   21. POLÍTICA & ECONOMIA
+   ========================================================= */
+
+.politics-section {
+    background: var(--periwinkle);
+}
+
+.policy-card {
+    display: grid;
+    grid-template-columns: 0.3fr 1fr;
+
+    background: var(--white);
+
+    border: var(--border);
+    box-shadow: var(--shadow);
+}
+
+.policy-date {
+    padding: 24px;
+
+    background: var(--yellow);
+
+    border-right: var(--border);
+
+    font-family: var(--font-mono);
+    font-size: 13px;
+    font-weight: 900;
+}
+
+.policy-content {
+    padding: 28px;
+}
+
+.policy-content h3 {
+    margin-bottom: 14px;
+
+    font-size: 34px;
+}
+
+.policy-content p {
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.policy-source {
+    margin-top: 18px;
+
+    font-family: var(--font-mono);
+    font-size: 10px;
+    font-weight: 800;
+    text-transform: uppercase;
+}
+
+
+/* =========================================================
+   22. ESTADOS DE DADOS
+   ========================================================= */
+
+.loading {
+    position: relative;
+
+    min-height: 100px;
+
+    overflow: hidden;
+
+    background: var(--bg-dark);
+}
+
+.loading::after {
+    content: "";
+
+    position: absolute;
+    inset: 0;
+
+    transform: translateX(-100%);
+
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.7),
+        transparent
+    );
+
+    animation: loading 1.2s infinite;
+}
+
+@keyframes loading {
+    to {
+        transform: translateX(100%);
+    }
+}
+
+.data-unavailable {
+    padding: 20px;
+
+    background: var(--bg-dark);
+
+    border: 2px solid var(--black);
+
+    font-family: var(--font-mono);
+    font-size: 12px;
+    font-weight: 800;
+}
+
+.last-updated {
+    margin-top: 10px;
+
+    font-family: var(--font-mono);
+    font-size: 10px;
+    font-weight: 700;
+}
+
+
+/* =========================================================
+   23. NEWSLETTER
+   ========================================================= */
+
+.newsletter-section {
+    background: var(--pink);
+}
+
+.newsletter-box {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+
+    padding: 40px;
+
+    background: var(--white);
+
+    border: var(--border);
+    box-shadow: var(--shadow);
+}
+
+.newsletter-box h2 {
+    font-size: clamp(36px, 5vw, 68px);
+    text-transform: uppercase;
+}
+
+.newsletter-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.newsletter-form-row {
+    display: flex;
+    gap: 10px;
+}
+
+.newsletter-input {
+    flex: 1;
+
+    min-width: 0;
+
+    min-height: 56px;
+
+    padding: 12px;
+
+    background: var(--white);
+
+    border: 2px solid var(--black);
+
+    outline: none;
+
+    font-weight: 700;
+}
+
+.newsletter-button {
+    min-height: 56px;
+
+    padding: 12px 18px;
+
+    background: var(--black);
+    color: var(--white);
+
+    border: 2px solid var(--black);
+
+    font-family: var(--font-display);
+    font-size: 12px;
+    text-transform: uppercase;
+}
+
+.newsletter-button:hover {
+    background: var(--yellow);
+    color: var(--black);
+}
+
+.newsletter-message {
+    margin-top: 12px;
+
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 800;
+}
+
+
+/* =========================================================
+   24. BOTÕES GERAIS
+   ========================================================= */
+
+.button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    min-height: 48px;
+
+    padding: 10px 16px;
+
+    border: var(--border);
+
+    font-family: var(--font-display);
+    font-size: 12px;
+    text-transform: uppercase;
+
+    transition:
+        transform var(--transition),
+        box-shadow var(--transition);
+}
+
+.button:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 4px 4px 0 var(--black);
+}
+
+.button-primary {
+    background: var(--black);
+    color: var(--white);
+}
+
+.button-yellow {
+    background: var(--yellow);
+    color: var(--black);
+}
+
+.button-pink {
+    background: var(--pink);
+    color: var(--black);
+}
+
+
+/* =========================================================
+   25. FOOTER
+   ========================================================= */
+
+.site-footer {
+    padding: 50px 0;
+
+    background: var(--black);
+    color: var(--white);
+
+    border-top: var(--border);
+}
+
+.footer-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+}
+
+.footer-title {
+    font-size: clamp(30px, 5vw, 60px);
+    text-transform: uppercase;
+}
+
+.footer-text {
+    max-width: 650px;
+
+    margin-top: 18px;
+
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.footer-bottom {
+    margin-top: 40px;
+    padding-top: 20px;
+
+    border-top: 1px solid #555;
+
+    font-family: var(--font-mono);
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+
+/* =========================================================
+   26. ACESSIBILIDADE
+   ========================================================= */
+
+:focus-visible {
+    outline: 4px solid var(--black);
+    outline-offset: 3px;
+}
+
+.visually-hidden {
+    position: absolute !important;
+
+    width: 1px;
+    height: 1px;
+
+    padding: 0;
+    margin: -1px;
+
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+
+    white-space: nowrap;
+    border: 0;
+}
+
+
+/* =========================================================
+   27. RESPONSIVIDADE — TABLET
+   ========================================================= */
+
+@media (max-width: 1100px) {
+
+    .hero-grid,
+    .market-grid,
+    .simulator-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .news-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .indicators-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .newsletter-box {
+        grid-template-columns: 1fr;
+    }
+
+    .footer-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+
+/* =========================================================
+   28. RESPONSIVIDADE — CELULAR
+   ========================================================= */
+
+@media (max-width: 760px) {
+
+    .container {
+        width: min(calc(100% - 24px), var(--container));
+    }
+
+    section {
+        padding: 55px 0;
+    }
+
+    .header-top {
+        min-height: 72px;
+        padding: 12px 0;
+    }
+
+    .header-info {
+        display: none;
+    }
+
+    .logo-mark {
+        width: 40px;
+        height: 40px;
+        font-size: 16px;
+    }
+
+    .logo-text {
+        font-size: 20px;
+    }
+
+    .mobile-menu-button {
+        display: block;
+    }
+
+    .main-nav {
+        display: none;
+    }
+
+    .main-nav.is-open {
+        display: block;
+    }
+
+    .nav-list {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .nav-link {
+        min-height: 44px;
+
+        border-bottom: 2px solid var(--black);
+        border-right: 2px solid var(--black);
+
+        font-size: 10px;
+        text-align: center;
+    }
+
+    .hero {
+        padding: 50px 0 60px;
+    }
+
+    .hero-title {
+        font-size: clamp(44px, 15vw, 76px);
+    }
+
+    .hero-description {
+        font-size: 16px;
+    }
+
+    .section-header {
+        display: block;
+    }
+
+    .section-subtitle {
+        margin-top: 16px;
+    }
+
+    .news-grid,
+    .impact-grid,
+    .stocks-grid,
+    .geopolitics-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .indicators-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .market-row {
+        grid-template-columns: 1fr auto;
+    }
+
+    .market-change {
+        grid-column: 2;
+    }
+
+    .economes-search {
+        grid-template-columns: 1fr;
+    }
+
+    .form-grid,
+    .result-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .form-group.full {
+        grid-column: auto;
+    }
+
+    .newsletter-box {
+        padding: 24px;
+    }
+
+    .newsletter-form-row {
+        flex-direction: column;
+    }
+
+    .policy-card {
+        grid-template-columns: 1fr;
+    }
+
+    .policy-date {
+        border-right: 0;
+        border-bottom: var(--border);
+    }
+
+    .trade-flow {
+        grid-template-columns: 1fr;
+    }
+
+    .trade-step {
+        border-right: 2px solid var(--black);
+        border-bottom: 0;
+    }
+
+    .trade-step:last-child {
+        border-bottom: 2px solid var(--black);
+    }
+
+    .footer-bottom {
+        line-height: 1.7;
+    }
+}
+
+
+/* =========================================================
+   29. CELULARES MUITO PEQUENOS
+   ========================================================= */
+
+@media (max-width: 430px) {
+
+    .container {
+        width: min(calc(100% - 18px), var(--container));
+    }
+
+    .nav-list {
+        grid-template-columns: 1fr;
+    }
+
+    .indicators-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .hero-title {
+        font-size: 43px;
+    }
+
+    .section-title {
+        font-size: 38px;
+    }
+
+    .news-title {
+        font-size: 25px;
+    }
+
+    .impact-card,
+    .simulator-form,
+    .simulator-result,
+    .geopolitics-card {
+        padding: 20px;
+    }
+}
+
+
+/* =========================================================
+   30. REDUÇÃO DE MOVIMENTO
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+        scroll-behavior: auto !important;
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+  }

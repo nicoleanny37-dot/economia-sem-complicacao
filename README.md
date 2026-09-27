@@ -1,10 +1,26 @@
 # Economia Sem Complicação
 
-Jornal econômico digital, visual e acessível para explicar economia de maneira simples para jovens e para todos que desejam entender o cenário econômico.
+Estrutura inicial de um jornal econômico automatizado.
 
-## Estrutura do Projeto (GitHub Pages)
-- `index.html`: Aplicação web estática completa (frontend, gráficos, simulador, dicionário e motor autônomo de cotações).
-- `/assets/`: Imagens e ícones do projeto.
+## Fluxo
 
-## Como Executar
-O site roda diretamente no navegador ou publicado via GitHub Pages, sem necessidade de servidor backend.
+Fontes → coleta → deduplicação → validação → processamento → imagem/crédito → JSON → site
+
+## Execução local
+
+```bash
+python -m pip install -r requirements.txt
+python atualizar_dados.py
+```
+
+Sem chave de IA, o projeto funciona em modo seguro: coleta e estrutura as notícias sem inventar texto.
+
+Para usar IA, configure `OPENAI_API_KEY` e, opcionalmente, `OPENAI_MODEL`.
+
+## Automação
+
+O arquivo `.github/workflows/atualizar.yml` executa o pipeline periodicamente pelo GitHub Actions.
+
+## Princípio editorial
+
+O bot não deve inventar fatos, números, fontes, declarações ou impactos. Informação sem confirmação fica marcada para revisão.
